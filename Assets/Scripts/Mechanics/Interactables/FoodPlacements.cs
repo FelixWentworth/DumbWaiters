@@ -8,7 +8,7 @@ public class FoodPlacements : Interactable
 
 	private bool _objectPlaced { get { return transform.childCount > 0; } }
 
-	public override bool CanInteract()
+	public override bool CanInteract(int team)
 	{
 		return !_objectPlaced;
 	}

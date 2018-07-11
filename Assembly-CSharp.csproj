@@ -62,21 +62,31 @@
     <Compile Include="Assets\Scripts\Characters\Movement.cs" />
     <Compile Include="Assets\Scripts\Characters\NPC.cs" />
     <Compile Include="Assets\Scripts\Characters\Player.cs" />
+    <Compile Include="Assets\Scripts\Characters\Satisfaction.cs" />
+    <Compile Include="Assets\Scripts\ForceLookAtCamera.cs" />
     <Compile Include="Assets\Scripts\HACK_FOOD_CONFIG.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\InteractionManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TableManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Scripts\Mechanics\FoodConfig.cs" />
-    <Compile Include="Assets\Scripts\Mechanics\FoodContainer.cs" />
-    <Compile Include="Assets\Scripts\Mechanics\FoodPlacements.cs" />
-    <Compile Include="Assets\Scripts\Mechanics\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\Bonus.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\FoodContainer.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\FoodPlacements.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\Modifier.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\Money.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\Interactables\Sabotage.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Seat.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Table.cs" />
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Felix/Documents/Projects/gamejam-sugar/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
+    <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
+    <None Include="Assets\Art\Materials\SharedMaterial.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Felix/Documents/Projects/gamejam-sugar/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>C:/Users/Felix/Documents/Projects/gamejam-sugar/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity2018/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

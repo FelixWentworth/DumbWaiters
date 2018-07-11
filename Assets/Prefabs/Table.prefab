@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4807576683989750}
   - component: {fileID: 33745214135863904}
   - component: {fileID: 23929967459161972}
-  - component: {fileID: 65690539324322672}
   m_Layer: 0
   m_Name: Leg
   m_TagString: Untagged
@@ -199,8 +198,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1703953402148200}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: -5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4400782859806990}
@@ -556,18 +555,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65690539324322672
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1395709999332262}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65811115055634242
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -603,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f9b0aa3c79d7c449ed2b0825fb3d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlacementGameObject: {fileID: 1533087381874158}
 --- !u!114 &114346518929183932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -625,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432df1e4ec6a2f047a3ae5e29bdac62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interaction: 1
+  Interaction: 2
   InteractableRange: 1.25
   Seat: {fileID: 114284274290477166}
 --- !u!114 &114522052880069350
@@ -639,6 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f9b0aa3c79d7c449ed2b0825fb3d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlacementGameObject: {fileID: 1811879440447846}
 --- !u!114 &114718499799399048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432df1e4ec6a2f047a3ae5e29bdac62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interaction: 1
+  Interaction: 2
   InteractableRange: 1.25
   Seat: {fileID: 114522052880069350}

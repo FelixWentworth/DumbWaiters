@@ -8,6 +8,9 @@ public class Seat : MonoBehaviour
 
 	public FoodConfig.FoodType PlacedFoodType { get; set; }
 
+	// TODO move this cos its some sort of circle jerk at the moment
+	public GameObject PlacementGameObject;
+
 	void Update()
 	{
 		if (!IsTaken)

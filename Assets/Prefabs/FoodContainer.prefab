@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d181fb680ec80364eb0db3132e1d7d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interaction: 0
+  Interaction: 1
   InteractableRange: 1.25
-  Type: 3
+  Type: 4
   _spriteParent: {fileID: 1079714133662048}

@@ -7,8 +7,10 @@ public class Interactable : MonoBehaviour
 	public enum InteractionType
 	{
 		Pickup,
+		Spawn,
 		Place,
-		Use
+		Use,
+		Take
 	}
 
 	[SerializeField]
@@ -42,9 +44,24 @@ public class Interactable : MonoBehaviour
 		return 0f;
 	}
 
-	public virtual bool CanInteract()
+	public virtual bool CanInteract(int team)
 	{
 		return true;
+	}
+
+	public virtual void Drop(Player player)
+	{
+		
+	}
+
+	public virtual void Use()
+	{
+		
+	}
+
+	public virtual void Take()
+	{
+		Destroy(gameObject);
 	}
 
 	public virtual void PlaceObject(GameObject obj)

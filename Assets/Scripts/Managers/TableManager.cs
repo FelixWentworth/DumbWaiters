@@ -1,29 +1,37 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class TableManager : MonoBehaviour {
+public class TableManager : MonoBehaviour
+{
 
-	public static Seat GetNearestAvailableSeat(Vector3 position)
+	public GameObject Team1Tables;
+	public GameObject Team2Tables;
+
+	private static List<Table> _team1Tables = new List<Table>();
+	private static List<Table> _team2Tables = new List<Table>();
+
+
+	void Start()
 	{
-		var tables = Object.FindObjectsOfType<Table>().Where(t => t.GetAvailableSeats() > 0);
+		_team1Tables = Team1Tables.GetComponentsInChildren<Table>().ToList();
+		_team2Tables = Team2Tables.GetComponentsInChildren<Table>().ToList();
+	}
+
+	public static Seat GetRandomAvailableSeatForTeam(int team)
+	{
+		var teamtables = team == 1 ? _team1Tables : _team2Tables;
+		var tables = teamtables.Where(t => t.GetAvailableSeats() > 0);
 		if (!tables.Any())
 		{
 			return null;
 		}
 
-		var closest = tables.First().AvailableSeat();
-		var dist = Vector3.Distance(position, closest.transform.position);
-		foreach (var table in tables)
-		{
-			if (Vector3.Distance(position, table.AvailableSeat().transform.position) < dist)
-			{
-				closest = table.AvailableSeat();
-			}
-		}
-		return closest;
+		var rand = UnityEngine.Random.Range(0, tables.Count());
+		return tables.ElementAt(rand).AvailableSeat();
 	}
 
-	public static Seat GetRandomAvailableSeat(Vector3 position)
+	public static Seat GetRandomAvailableSeat()
 	{
 		var tables = Object.FindObjectsOfType<Table>().Where(t => t.GetAvailableSeats() > 0);
 		if (!tables.Any())
