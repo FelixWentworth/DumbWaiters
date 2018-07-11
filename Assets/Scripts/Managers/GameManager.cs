@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			Time.timeScale = 1f;
 			SceneManager.LoadScene(0);
 		}
 		

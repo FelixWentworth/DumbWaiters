@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
 					else
 					{
 						// HACK assuming that the object we are holding is the nearest, this may cause issues
-						nearest.transform.SetParent(null);
+						
 						nearest.Drop(this);
 					}
 					break;

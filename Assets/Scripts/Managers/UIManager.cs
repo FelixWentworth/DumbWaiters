@@ -51,6 +51,10 @@ public class UIManager : MonoBehaviour {
 		{
 			GoToState((UIState)CurrentState);
 		}
+		if (!_activeUiObject.Parent.activeSelf)
+		{
+			_activeUiObject.Parent.SetActive(true);
+		}
 	}
 
 	public void SetState(UIState state)
