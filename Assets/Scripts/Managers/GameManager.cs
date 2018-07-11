@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public float TimeAvailable = 100;
 
+	public Material Team1Material;
+	public Material Team2Material;
+
 	public GameObject PlayerGameObject;
 
 	public GameObject CustomerSpawnPoint;
@@ -80,7 +83,8 @@ public class GameManager : MonoBehaviour
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 		_uiManager.SetState(UIManager.UIState.Game);
 		// Create our player
-		Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Team = 1;
+		Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(1, Team1Material);
+		Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(2, Team2Material);
 	}
 
 	public static FoodConfig.FoodType GetRandomFood()

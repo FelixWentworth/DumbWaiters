@@ -5,19 +5,17 @@ using UnityEngine;
 public class Money : Interactable
 {
 	private float _satisfaction;
-	private int _team;
 	private ScoreManager _scoreManager;
 
-	public void Set(int team, float customerSatisfaction)
+	public void Set(float customerSatisfaction)
 	{
-		_team = team;
 		_satisfaction = customerSatisfaction;
 		_scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 	}
 
-	public override void Take()
+	public override void Take(int team)
 	{
-		base.Take();
-		_scoreManager.TipPickedUp(_team, _satisfaction, transform.position);
+		base.Take(team);
+		_scoreManager.TipPickedUp(team, _satisfaction, transform.position);
 	}
 }

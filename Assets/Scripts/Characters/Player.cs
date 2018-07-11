@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 	public GameObject ProgressBarParent;
 	public GameObject ProgressBar;
 
+	public List<Renderer> TeamDependentRenderers;
+
 	public bool Busy = false;
 
 	private bool _isHolding { get { return Hands.transform.childCount > 0; } }
@@ -28,40 +30,130 @@ public class Player : MonoBehaviour
 		_movement.MovementSpeed = MovementSpeed;
 	}
 
+	public void Set(int team, Material material)
+	{
+		Team = team;
+		foreach (var teamDependentRenderer in TeamDependentRenderers)
+		{
+			teamDependentRenderer.material = material;
+		}
+	}
+
 	void Update()
 	{
 		ProgressBarParent.SetActive(Busy);
-		float x, z;
-		
-		x = Input.GetAxis("Horizontal");
-		z = Input.GetAxis("Vertical");
+		float x = 0f;
+		float z = 0f;
+		//	x = Input.GetAxis("Horizontal");
+		//	z = Input.GetAxis("Vertical");
 
-		if (x != 0 || z != 0)
+		//	if (x != 0 || z != 0)
+		//	{
+		//		Move(x, z);
+		//	}
+		//	if (!Busy)
+		//	{
+		//		if (Input.GetKeyDown(KeyCode.Space))
+		//		{
+		//			Interact();
+		//		}
+
+		//		// TODO move to command for server
+		//		if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
+		//		{
+		//			// Spawn a sabotage Item
+		//			_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
+		//				Quaternion.identity);
+		//		}
+
+		//		if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
+		//		{
+		//			// Spawn a bonus Item
+		//			_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
+		//				Quaternion.identity);
+
+		//		}
+
+		if (Team == 1)
 		{
-			Move(x, z);
-		}
-		if (!Busy)
-		{
+			if (Input.GetKey(KeyCode.A))
+			{
+				x = -1;
+			}
+			else if (Input.GetKey(KeyCode.D))
+			{
+				x = 1;
+			}
+			if (Input.GetKey(KeyCode.W))
+			{
+				z = 1;
+			}
+			else if (Input.GetKey(KeyCode.S))
+			{
+				z = -1;
+			}
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				Interact();
 			}
-
-			// TODO move to command for server
 			if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
 			{
 				// Spawn a sabotage Item
-				_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+				_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
 			}
 
 			if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
 			{
 				// Spawn a bonus Item
-				_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+				_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
 
 			}
 		}
+		if (Team == 2)
+		{
+			if (Input.GetKey(KeyCode.LeftArrow))
+			{
+				x = -1;
+			}
+			else if (Input.GetKey(KeyCode.RightArrow))
+			{
+				x = 1;
+			}
+			if (Input.GetKey(KeyCode.UpArrow))
+			{
+				z = 1;
+			}
+			else if (Input.GetKey(KeyCode.DownArrow))
+			{
+				z = -1;
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad0))
+			{
+				Interact();
+			}
+			if (Input.GetKeyDown(KeyCode.Keypad1) && _sabotageItem == null)
+			{
+				// Spawn a sabotage Item
+				_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
+			}
 
+			if (Input.GetKeyDown(KeyCode.Keypad2) && _bonusItem == null)
+			{
+				// Spawn a bonus Item
+				_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
+
+			}
+		}
+		
+
+		if (x != 0 || z != 0)
+		{
+			Move(x, z);
+		}
 
 	}
 
@@ -77,6 +169,7 @@ public class Player : MonoBehaviour
 		var nearest = InteractionManager.GetNearestInteractable(transform.position);
 		if (nearest != null)
 		{
+			Debug.Log(nearest.GetInteractionType());
 			switch (nearest.GetInteractionType())
 			{
 				case Interactable.InteractionType.Spawn:
@@ -112,7 +205,7 @@ public class Player : MonoBehaviour
 					}
 					break;
 				case Interactable.InteractionType.Take:
-					nearest.Take();
+					nearest.Take(Team);
 					break;
 			}
 		}

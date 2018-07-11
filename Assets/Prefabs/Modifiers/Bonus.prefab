@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interaction: 0
-  InteractableRange: 1.5
+  InteractableRange: 2
   _timeToDestroy: 2
   _bonusAmount: 0.2
   _range: 5

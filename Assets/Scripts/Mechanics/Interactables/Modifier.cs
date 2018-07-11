@@ -79,6 +79,6 @@ public class Modifier : Interactable {
 
 	public override bool CanInteract(int team)
 	{
-		return team != team;
+		return Team != team;
 	}
 }

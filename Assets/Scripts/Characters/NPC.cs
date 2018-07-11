@@ -116,7 +116,7 @@ public class NPC : MonoBehaviour
 	private void LeaveTip()
 	{
 		var go = Instantiate(TipGameObject, _seat.PlacementGameObject.transform).GetComponent<Money>();
-		go.Set(Team, _satisfaction.CharacterSatisfaction);
+		go.Set(_satisfaction.CharacterSatisfaction);
 	}
 
 }

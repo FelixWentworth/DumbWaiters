@@ -51,7 +51,8 @@ public class Interactable : MonoBehaviour
 
 	public virtual void Drop(Player player)
 	{
-		
+		transform.SetParent(null);
+		transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 	}
 
 	public virtual void Use()
@@ -59,7 +60,7 @@ public class Interactable : MonoBehaviour
 		
 	}
 
-	public virtual void Take()
+	public virtual void Take(int team)
 	{
 		Destroy(gameObject);
 	}

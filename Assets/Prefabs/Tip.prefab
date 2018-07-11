@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a18b3a68aeb2a44abb2f8d585a3ed1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interaction: 3
+  Interaction: 4
   InteractableRange: 1.5
