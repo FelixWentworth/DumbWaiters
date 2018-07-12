@@ -10,7 +10,8 @@ public class Interactable : MonoBehaviour
 		Spawn,
 		Place,
 		Use,
-		Take
+		Take,
+		Trash
 	}
 
 	[SerializeField]
@@ -58,6 +59,12 @@ public class Interactable : MonoBehaviour
 	public virtual void Use()
 	{
 		
+	}
+
+	// used for trash cans
+	public virtual void Use(Player player, GameObject gameObject)
+	{
+		Destroy(gameObject);
 	}
 
 	public virtual void Take(int team)

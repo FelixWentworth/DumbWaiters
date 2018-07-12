@@ -21,7 +21,7 @@ public class NPC : MonoBehaviour
 
 	private bool busy;
 
-	public Renderer MoodGameRenderer;
+	public List<Renderer> MoodGameRenderers;
 	private MaterialPropertyBlock _propBlock;
 
 	public void MoveToSeat()
@@ -48,10 +48,8 @@ public class NPC : MonoBehaviour
 
 	void Update()
 	{
-		// update color based on satisfaction from http://thomasmountainborn.com/2016/05/25/materialpropertyblocks/
-		MoodGameRenderer.GetPropertyBlock(_propBlock);
-		_propBlock.SetColor("_Color", _satisfaction.GetSatisfactionColor());
-		MoodGameRenderer.SetPropertyBlock(_propBlock);
+		
+		
 
 		if (transform.position == _seat.transform.position && RequestContainer != null && RequestContainer.transform.childCount == 0)
 		{
@@ -80,6 +78,17 @@ public class NPC : MonoBehaviour
 		if (transform.position == _startPos && _requests[0] != FoodConfig.FoodType.None)
 		{
 			Destroy(this.gameObject);
+		}
+	}
+
+	void FixedUpdate()
+	{
+		// update color based on satisfaction from http://thomasmountainborn.com/2016/05/25/materialpropertyblocks/
+		foreach (var moodGameRenderer in MoodGameRenderers)
+		{
+			moodGameRenderer.GetPropertyBlock(_propBlock);
+			_propBlock.SetColor("_Color", _satisfaction.GetSatisfactionColor());
+			moodGameRenderer.SetPropertyBlock(_propBlock);
 		}
 	}
 

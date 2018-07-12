@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Player : MonoBehaviour
 {
@@ -169,7 +170,8 @@ public class Player : MonoBehaviour
 		var nearest = InteractionManager.GetNearestInteractable(transform.position);
 		if (nearest != null)
 		{
-			Debug.Log(nearest.GetInteractionType());
+			var holdingObj = new GameObject();
+
 			switch (nearest.GetInteractionType())
 			{
 				case Interactable.InteractionType.Spawn:
@@ -193,7 +195,7 @@ public class Player : MonoBehaviour
 				case Interactable.InteractionType.Place:
 					if (_isHolding && nearest.CanInteract(Team))
 					{
-						var holdingObj = Hands.transform.GetChild(0).gameObject;
+						holdingObj = Hands.transform.GetChild(0).gameObject;
 						nearest.PlaceObject(holdingObj);
 					}
 					break;
@@ -206,6 +208,13 @@ public class Player : MonoBehaviour
 					break;
 				case Interactable.InteractionType.Take:
 					nearest.Take(Team);
+					break;
+				case Interactable.InteractionType.Trash:
+					if (_isHolding)
+					{
+						holdingObj = Hands.transform.GetChild(0).gameObject;
+						nearest.Use(this, holdingObj);
+					}
 					break;
 			}
 		}

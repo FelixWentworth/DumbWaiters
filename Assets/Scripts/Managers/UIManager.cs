@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour {
 		Lobby,
 		Game,
 		GameOver,
+		DeviceControls
 	}
 
 	[Serializable]
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour {
 			new UIObject{State = UIState.Lobby},
 			new UIObject{State = UIState.Game},
 			new UIObject{State = UIState.GameOver},
+			new UIObject{State = UIState.DeviceControls},
 		};
 	}
 

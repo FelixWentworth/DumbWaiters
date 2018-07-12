@@ -150,7 +150,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fcbb7ed4bf9de074e8dfe5c44ae7d561, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -261,7 +261,9 @@ MonoBehaviour:
   RequestContainer: {fileID: 1710026855444632}
   TipGameObject: {fileID: 1444675827994456, guid: 376b0cd07c6f83d4fac941860b82655a,
     type: 2}
-  MoodGameRenderer: {fileID: 23729994484103478}
+  MoodGameRenderers:
+  - {fileID: 23261937263967142}
+  - {fileID: 23729994484103478}
 --- !u!114 &114887147043784278
 MonoBehaviour:
   m_ObjectHideFlags: 1
