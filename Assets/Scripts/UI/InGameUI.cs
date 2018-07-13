@@ -12,17 +12,27 @@ public class InGameUI : MonoBehaviour
 
 	private ScoreManager _scoreManager;
 	private GameManager _gameManager;
+	private GameManagerLocal _gameManagerLocal;
 
 	void Start()
 	{
 		_scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		_gameManagerLocal = GameObject.Find("GameManagerLocal").GetComponent<GameManagerLocal>();
+		
 	}
 
 	void LateUpdate()
 	{
 		Team1ScoreText.text = _scoreManager.TextPrefix + _scoreManager.GetTeamTotalMoney(1);
 		Team2ScoreText.text = _scoreManager.TextPrefix + _scoreManager.GetTeamTotalMoney(2);
-		TimeRemainingText.text = _gameManager.TimeRemaining + "s";
+		if (_gameManager != null)
+		{
+			TimeRemainingText.text = _gameManager.TimeRemaining + "s";
+		}
+		if (_gameManagerLocal != null)
+		{
+			TimeRemainingText.text = _gameManagerLocal.TimeRemaining + "s";
+		}
 	}
 }

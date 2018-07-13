@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour {
 
 	void Start()
 	{
-		SetState(UIState.Menu);
+		//SetState(UIState.Menu);
 	}
 
 	void LateUpdate()

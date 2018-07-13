@@ -843,7 +843,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &507668463
 GameObject:
@@ -1190,7 +1190,7 @@ RectTransform:
   - {fileID: 1458634299}
   - {fileID: 1033786413}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1269,7 +1269,7 @@ GameObject:
   - component: {fileID: 827544698}
   - component: {fileID: 827544697}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManagerLocal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1283,17 +1283,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 827544696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf9032906362294395db7b6a55dde69, type: 3}
+  m_Script: {fileID: 11500000, guid: 09a99939967ba35499e5e2b967926dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TimeAvailable: 100
-  Team1Material: {fileID: 2100000, guid: bed1fff706ed93847a14adb6a8e127c2, type: 2}
-  Team2Material: {fileID: 2100000, guid: e875e5bbfc37a7c499f258bfd27da0b3, type: 2}
   PlayerGameObject: {fileID: 1851482269522172, guid: 34ac5221f3bb5be40b94977052c95198,
     type: 2}
   CustomerSpawnPoint: {fileID: 1685493788}
   CustomerGameObject: {fileID: 1793080357177876, guid: b35ce599d3377b549a3504016197fbd1,
     type: 2}
+  PlayerCount: 0
 --- !u!4 &827544698
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,7 +1496,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &932412300
 MonoBehaviour:
@@ -1513,14 +1512,16 @@ MonoBehaviour:
   _gameUI:
     UI:
     - State: 0
-      Parent: {fileID: 2085986046}
+      Parent: {fileID: 0}
     - State: 1
-      Parent: {fileID: 866454595}
+      Parent: {fileID: 2085986046}
     - State: 2
-      Parent: {fileID: 1477313002}
+      Parent: {fileID: 866454595}
     - State: 3
-      Parent: {fileID: 1458634298}
+      Parent: {fileID: 1477313002}
     - State: 4
+      Parent: {fileID: 1458634298}
+    - State: 5
       Parent: {fileID: 1033786412}
 --- !u!1 &1002935802
 GameObject:
@@ -1968,7 +1969,7 @@ Transform:
   - {fileID: 1622176899}
   - {fileID: 259213419}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1306758477
 GameObject:
@@ -2483,7 +2484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469927600
 GameObject:
@@ -2676,6 +2677,39 @@ Transform:
   m_PrefabParentObject: {fileID: 4053110408029728, guid: f598d4125d7f7cc43a52677497377701,
     type: 2}
   m_PrefabInternal: {fileID: 1320998171}
+--- !u!1 &1639192811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1639192812}
+  m_Layer: 5
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1639192812
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1639192811}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 777, y: 437}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1651846937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2979,7 +3013,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1784723847
 Prefab:
