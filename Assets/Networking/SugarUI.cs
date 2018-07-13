@@ -14,9 +14,9 @@ public class SugarUI : MonoBehaviour
 
 	void Start()
 	{
-		var isDevice = Application.platform != RuntimePlatform.WindowsEditor;
-		//var isDevice = Application.platform == RuntimePlatform.Android ||
-		//               Application.platform == RuntimePlatform.IPhonePlayer;
+		//var isDevice = Application.platform != RuntimePlatform.WindowsEditor;
+		var isDevice = Application.platform == RuntimePlatform.Android ||
+		               Application.platform == RuntimePlatform.IPhonePlayer;
 
 		if (isDevice && SUGARManager.CurrentUser == null)
 		{
