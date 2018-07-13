@@ -393,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b80b12ddb25ed349bc3b91690ba1047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   MovementSpeed: 5
   Hands: {fileID: 1379247456939092}
   SabotagePrefab: {fileID: 1953331657732276, guid: 4e603a186a6ca5343a3d73012879a056,
@@ -404,6 +405,8 @@ MonoBehaviour:
   TeamDependentRenderers:
   - {fileID: 23581274721673204}
   - {fileID: 23609988914999030}
+  Team1Material: {fileID: 2100000, guid: bed1fff706ed93847a14adb6a8e127c2, type: 2}
+  Team2Material: {fileID: 2100000, guid: e875e5bbfc37a7c499f258bfd27da0b3, type: 2}
   Busy: 0
 --- !u!114 &114497367960771874
 MonoBehaviour:

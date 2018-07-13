@@ -18,7 +18,7 @@ namespace UnityEngine.Networking
 		void Awake()
 		{
 			manager = GetComponent<NetworkManager>();
-			myStyle.fontSize = 100;
+			myStyle.fontSize = 50;
 			myStyle.normal.textColor = Color.cyan;
 		}
 
@@ -58,24 +58,24 @@ namespace UnityEngine.Networking
 
 			int xpos = 10 + offsetX;
 			int ypos = 40 + offsetY;
-			int spacing = 120;
+			int spacing = 60;
 
 			if (!NetworkClient.active && !NetworkServer.active && manager.matchMaker == null)
 			{
-				if (GUI.Button(new Rect(xpos, ypos, 800, 80), "LAN Host(H)",myStyle))
+				if (GUI.Button(new Rect(xpos, ypos, 400, 40), "LAN Host(H)",myStyle))
 				{
 					manager.StartHost();
 				}
 				ypos += spacing;
 
-				if (GUI.Button(new Rect(xpos, ypos, 805, 80), "LAN Client(C)", myStyle))
+				if (GUI.Button(new Rect(xpos, ypos, 405, 40), "LAN Client(C)", myStyle))
 				{
 					manager.StartClient();
 				}
-				manager.networkAddress = GUI.TextField(new Rect(xpos + 800, ypos, 500, 100), manager.networkAddress);
+				manager.networkAddress = GUI.TextField(new Rect(xpos + 400, ypos, 250, 50), manager.networkAddress);
 				ypos += spacing;
 
-				if (GUI.Button(new Rect(xpos, ypos, 800, 80), "LAN Server Only(S)", myStyle))
+				if (GUI.Button(new Rect(xpos, ypos, 400, 40), "LAN Server Only(S)", myStyle))
 				{
 					manager.StartServer();
 				}
@@ -85,19 +85,19 @@ namespace UnityEngine.Networking
 			{
 				if (NetworkServer.active)
 				{
-					GUI.Label(new Rect(xpos, ypos, 900, 90), "Server: port=" + manager.networkPort, myStyle);
+					GUI.Label(new Rect(xpos, ypos, 450, 45), "Server: port=" + manager.networkPort, myStyle);
 					ypos += spacing;
 				}
 				if (NetworkClient.active)
 				{
-					GUI.Label(new Rect(xpos, ypos, 900, 90), "Client: address=" + manager.networkAddress + " port=" + manager.networkPort, myStyle);
+					GUI.Label(new Rect(xpos, ypos, 450, 45), "Client: address=" + manager.networkAddress + " port=" + manager.networkPort, myStyle);
 					ypos += spacing;
 				}
 			}
 
 			if (NetworkClient.active && !ClientScene.ready)
 			{
-				if (GUI.Button(new Rect(xpos, ypos, 800, 80), "Client Ready", myStyle))
+				if (GUI.Button(new Rect(xpos, ypos, 400, 40), "Client Ready", myStyle))
 				{
 					ClientScene.Ready(manager.client.connection);
 				
@@ -111,7 +111,7 @@ namespace UnityEngine.Networking
 
 			if (NetworkServer.active || NetworkClient.active)
 			{
-				if (GUI.Button(new Rect(xpos, ypos, 800, 80), "Stop (X)", myStyle))
+				if (GUI.Button(new Rect(xpos, ypos, 400, 40), "Stop (X)", myStyle))
 				{
 					manager.StopHost();
 				}

@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
 
 	public List<Renderer> TeamDependentRenderers;
 
+	public Material Team1Material;
+	public Material Team2Material;
+
+
 	public bool Busy = false;
 
 	private bool _isHolding { get { return Hands.transform.childCount > 0; } }
@@ -33,9 +37,9 @@ public class Player : MonoBehaviour
 		_movement.MovementSpeed = MovementSpeed;
 	}
 
-	public void Set(int team, Material material)
+	public void SetColours()
 	{
-		Team = team;
+		var material = Team == 1 ? Team1Material : Team2Material;
 		foreach (var teamDependentRenderer in TeamDependentRenderers)
 		{
 			teamDependentRenderer.material = material;

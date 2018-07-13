@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour {
 
 	public enum UIState
 	{
-		Menu = 0,
+		None = 0,
+		Menu,
 		Tutorial,
 		Lobby,
 		Game,
@@ -44,7 +45,7 @@ public class UIManager : MonoBehaviour {
 
 	void Start()
 	{
-		DisableStates();
+		SetState(UIState.Menu);
 	}
 
 	void LateUpdate()

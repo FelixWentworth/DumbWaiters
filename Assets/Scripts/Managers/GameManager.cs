@@ -15,9 +15,6 @@ public class GameManager : NetworkBehaviour
 	/// </summary>
 	public float TimeAvailable = 100;
 
-	public Material Team1Material;
-	public Material Team2Material;
-
 	public GameObject PlayerGameObject;
 
 	public GameObject CustomerSpawnPoint;
@@ -35,6 +32,9 @@ public class GameManager : NetworkBehaviour
 	public int TimeRemaining { get { return Mathf.CeilToInt(_timeAvailable); } }
 
 	private bool _startGame;
+
+	public int PlayerCount;
+	public Dictionary<int, Player> ConnectedPlayers = new Dictionary<int, Player>();
 
 	void Start()
 	{
@@ -77,7 +77,7 @@ public class GameManager : NetworkBehaviour
 				SceneManager.LoadScene(0);
 			}
 		}
-		if (Input.anyKeyDown)
+		if (Input.GetKeyDown(KeyCode.P))
 		{
 			_startGame = true;
 			Time.timeScale = 1f;
@@ -91,7 +91,6 @@ public class GameManager : NetworkBehaviour
 		_scoreManager.Setup(2);
 
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-		_uiManager.SetState(UIManager.UIState.Menu);
 		// Create our players
 		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(1, Team1Material);
 		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(2, Team2Material);

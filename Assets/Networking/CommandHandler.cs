@@ -9,8 +9,6 @@ using UnityEngine.UI;
 /// </summary>
 public class CommandHandler : NetworkBehaviour
 {
-	private Dictionary<int, Player> _connectedPlayers = new Dictionary<int, Player>();
-
 	public GameObject PlayerGameObject;
 
 	private int Id = 0;
@@ -28,10 +26,23 @@ public class CommandHandler : NetworkBehaviour
 	private void CmdSpawn()
 	{
 		var p = Instantiate(PlayerGameObject, new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Player>();
-		p.ID = _connectedPlayers.Count + 1;
-
+		
 		NetworkServer.Spawn(p.gameObject);
-		_connectedPlayers.Add(p.ID, p);
+		SetupPlayer(p);
+	}
+
+	[Server]
+	private void SetupPlayer(Player p)
+	{
+		var gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		gm.PlayerCount ++ ;
+		if (p.ID == 0)
+		{
+			p.ID = gm.PlayerCount;
+		}
+		p.Team = p.ID % 2 == 1 ? 1 : 2;
+		p.SetColours();
+		gm.ConnectedPlayers.Add(p.ID, p);
 
 		RpcSetId(p.ID);
 	}
@@ -56,8 +67,9 @@ public class CommandHandler : NetworkBehaviour
 	[Command]
 	private void CmdMove(int id, float x, float y)
 	{
+		var gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		var player = gm.ConnectedPlayers[id];
 
-		var player = _connectedPlayers[id];
 		if (player != null)
 		{
 			player.Move(x, y);
@@ -80,7 +92,8 @@ public class CommandHandler : NetworkBehaviour
 	[Command]
 	private void CmdUse(int id)
 	{
-		var player = _connectedPlayers[id];
+		var gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		var player = gm.ConnectedPlayers[id];
 		if (player != null)
 		{
 			player.Interact();
