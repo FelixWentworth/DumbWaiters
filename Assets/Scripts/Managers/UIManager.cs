@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour {
 
 	void Start()
 	{
-		DisableStates();
+		//DisableStates();
 	}
 
 	void LateUpdate()
