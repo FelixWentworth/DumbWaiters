@@ -5,12 +5,21 @@ using UnityEngine.Networking;
 
 public class NetworkingUI : NetworkBehaviour
 {
-	public GameObject Host_UI;
-	public GameObject Client_UI;
+	private UIManager _uiManager;
 
+	void Start()
+	{
+		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+	}
 	void Update()
 	{
-		Host_UI.SetActive(isServer);
-		Client_UI.SetActive(!isServer);
+		if (isClient)
+		{
+			_uiManager.SetState(UIManager.UIState.DeviceControls);
+		}
+		if (isServer)
+		{
+			_uiManager.SetState(UIManager.UIState.Game);
+		}
 	}
 }

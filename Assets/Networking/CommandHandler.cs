@@ -9,41 +9,86 @@ using UnityEngine.UI;
 /// </summary>
 public class CommandHandler : NetworkBehaviour
 {
+	private Dictionary<int, Player> _connectedPlayers = new Dictionary<int, Player>();
 
-	public Text CommandText;
+	public GameObject PlayerGameObject;
 
-	void Start()
-	{
-		CommandText = GameObject.Find("StatusText").GetComponent<Text>();
-	}
+	private int Id = 0;
 
-	public void SendMoveCommand(int x, int y)
+	public void Start()
 	{
 		if (isLocalPlayer)
 		{
-			CommandText.text = "Send Move";
-			CmdMove(x, y);
+			GameObject.Find("DeviceControlsManager").GetComponent<DeviceControls>().SetCommandHandler(this);
+			CmdSpawn();
 		}
 	}
 
 	[Command]
-	private void CmdMove(int x, int y)
+	private void CmdSpawn()
 	{
-		CommandText.text = "Set Direction to: (" + x + ", " + y + ")";
+		var p = Instantiate(PlayerGameObject, new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Player>();
+		p.ID = _connectedPlayers.Count + 1;
+
+		NetworkServer.Spawn(p.gameObject);
+		_connectedPlayers.Add(p.ID, p);
+
+		RpcSetId(p.ID);
+	}
+
+	[ClientRpc]
+	private void RpcSetId(int id)
+	{
+		if (Id == 0)
+		{
+			Id = id;
+		}
+	}
+
+	public void SendMoveCommand(float x, float y)
+	{
+		if (isLocalPlayer)
+		{
+			CmdMove(Id, x, y);
+		}
+	}
+
+	[Command]
+	private void CmdMove(int id, float x, float y)
+	{
+
+		var player = _connectedPlayers[id];
+		if (player != null)
+		{
+			player.Move(x, y);
+		}
+		else
+		{
+			Debug.Log(id + " does not exist in list");
+		}
+
 	}
 
 	public void SendUseCommand()
 	{
 		if (isLocalPlayer)
 		{
-			CommandText.text = "Send use";
-			CmdUse();
+			CmdUse(Id);
 		}
 	}
 
 	[Command]
-	private void CmdUse()
+	private void CmdUse(int id)
 	{
-		CommandText.text = "Interact Pressed";
+		var player = _connectedPlayers[id];
+		if (player != null)
+		{
+			player.Interact();
+		}
+		else
+		{
+			Debug.Log(id + " does not exist in list");
+		}
+
 	}
 }

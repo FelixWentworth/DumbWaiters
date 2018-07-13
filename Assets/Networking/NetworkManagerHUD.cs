@@ -19,6 +19,7 @@ namespace UnityEngine.Networking
 		{
 			manager = GetComponent<NetworkManager>();
 			myStyle.fontSize = 100;
+			myStyle.normal.textColor = Color.cyan;
 		}
 
 		void Update()

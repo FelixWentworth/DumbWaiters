@@ -49,20 +49,26 @@ public class UIManager : MonoBehaviour {
 
 	void LateUpdate()
 	{
-		if (_activeUiObject != null && (int)_activeUiObject.State != CurrentState)
+		if (_activeUiObject != null)
 		{
-			GoToState((UIState)CurrentState);
-		}
-		if (!_activeUiObject.Parent.activeSelf)
-		{
-			_activeUiObject.Parent.SetActive(true);
+			if ((int) _activeUiObject.State != CurrentState)
+			{
+				GoToState((UIState) CurrentState);
+			}
+			if (!_activeUiObject.Parent.activeSelf)
+			{
+				_activeUiObject.Parent.SetActive(true);
+			}
 		}
 	}
 
 	public void SetState(UIState state)
 	{
-		CurrentState = (int) state;
-		GoToState((UIState)CurrentState);
+		if (CurrentState != (int) state)
+		{
+			CurrentState = (int) state;
+			GoToState((UIState) CurrentState);
+		}
 	}
 
 

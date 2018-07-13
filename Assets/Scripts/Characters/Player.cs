@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.Networking;
 
 public class Player : MonoBehaviour
 {
+	public int ID;
 	public int Team { get; set; }
 	public float MovementSpeed = 1;
 	private Movement _movement;
@@ -158,18 +160,19 @@ public class Player : MonoBehaviour
 
 	}
 
-	private void Move(float x, float z)
+	public void Move(float x, float z)
 	{
 		Busy = false;
 		_movement.Move(x: x, z: z);
 	}
 
-	private void Interact()
+	public void Interact()
 	{
 		// Get Nearest Interactable
 		var nearest = InteractionManager.GetNearestInteractable(transform.position);
 		if (nearest != null)
 		{
+			Debug.Log(nearest);
 			var holdingObj = new GameObject();
 
 			switch (nearest.GetInteractionType())

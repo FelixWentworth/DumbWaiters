@@ -57,7 +57,8 @@ public class Movement : MonoBehaviour
 				transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * MovementSpeed);
 
 				// reduce player speed over time
-				ReduceSpeeds();
+				//ReduceSpeeds();
+				ResetSpeeds();
 			}
 			yield return null;
 		}
@@ -68,6 +69,12 @@ public class Movement : MonoBehaviour
 		_x = _x > _deadzone || _x < -_deadzone ? _x / _reductionFactor : 0;
 		_y = _y > _deadzone || _y < -_deadzone ? _y / _reductionFactor : 0;
 		_z = _z > _deadzone || _z < -_deadzone ? _z / _reductionFactor : 0;
+	}
+	private void ResetSpeeds()
+	{
+		_x = 0;
+		_y = 0;
+		_z = 0;
 	}
 
 }

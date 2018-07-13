@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This class handles the creation of core game elements that set the game up,
 /// Also handles transitions to UIs
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
 	/// <summary>
 	/// In Seconds
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
 	private float _timeAvailable;
 	public int TimeRemaining { get { return Mathf.CeilToInt(_timeAvailable); } }
 
+	private bool _startGame;
+
 	void Start()
 	{
 		SetupGame();
@@ -40,39 +43,45 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if (_current <= 0f)
+		if (isServer && _startGame)
 		{
-			if (TableManager.GetRandomAvailableSeatForTeam(currentTeam) != null)
+			if (_current <= 0f)
 			{
-				// Check there is a seat available before instantiating
-				var customer = Instantiate(CustomerGameObject, CustomerSpawnPoint.transform).GetComponent<NPC>();
-				customer.SetRequests(GetRandomFoodList());
-				customer.Team = currentTeam;
-				customer.LeaveAction = _scoreManager.CustomerLeft;
+				if (TableManager.GetRandomAvailableSeatForTeam(currentTeam) != null)
+				{
+					// Check there is a seat available before instantiating
+					var customer = Instantiate(CustomerGameObject, CustomerSpawnPoint.transform).GetComponent<NPC>();
+					customer.SetRequests(GetRandomFoodList());
+					customer.Team = currentTeam;
+					customer.LeaveAction = _scoreManager.CustomerLeft;
 
-				customer.MoveToSeat();
+					customer.MoveToSeat();
 
+				}
+				currentTeam = currentTeam != 1 ? 1 : 2;
+
+				_current = _Interval;
 			}
-			currentTeam = currentTeam != 1 ? 1 : 2;
 
-			_current = _Interval;
+			_current -= Time.deltaTime;
+			_timeAvailable -= Time.deltaTime;
+
+			if (_timeAvailable <= 0f)
+			{
+				// HACK stop gameplay
+				Time.timeScale = 0f;
+			}
+
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				SceneManager.LoadScene(0);
+			}
 		}
-
-		_current -= Time.deltaTime;
-		_timeAvailable -= Time.deltaTime;
-
-		if (_timeAvailable <= 0f)
+		if (Input.anyKeyDown)
 		{
-			// HACK stop gameplay
-			Time.timeScale = 0f;
-		}
-
-		if (Input.GetKeyDown(KeyCode.R))
-		{
+			_startGame = true;
 			Time.timeScale = 1f;
-			SceneManager.LoadScene(0);
 		}
-		
 	}
 
 	private void SetupGame()
@@ -82,10 +91,10 @@ public class GameManager : MonoBehaviour
 		_scoreManager.Setup(2);
 
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-		_uiManager.SetState(UIManager.UIState.Game);
-		// Create our player
-		Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(1, Team1Material);
-		Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(2, Team2Material);
+		_uiManager.SetState(UIManager.UIState.Menu);
+		// Create our players
+		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(1, Team1Material);
+		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(2, Team2Material);
 	}
 
 	public static FoodConfig.FoodType GetRandomFood()
