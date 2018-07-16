@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PlayGen.SUGAR.Unity;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 public class CommandHandler : NetworkBehaviour
 {
 	public GameObject PlayerGameObject;
-
+	
 	private int Id = 0;
 
 	public void Start()
@@ -103,5 +104,23 @@ public class CommandHandler : NetworkBehaviour
 			Debug.Log(id + " does not exist in list");
 		}
 
+	}
+
+	[ClientRpc]
+	public void RpcGameFinished(int team1Money, int team2Money, int winningTeam, int rep)
+	{
+		if (isLocalPlayer)
+		{
+			var team = Id % 2 == 1 ? 1 : 0;
+			var money = team == 1 ? team1Money : team2Money;
+			SUGARManager.Resource.Add("Money", money, null);
+		
+			// if its a tie, still award the rep
+			if (winningTeam == team || winningTeam == 0)
+			{
+				// TODO check if we need to pull game data firts
+				SUGARManager.GameData.Send("Reputation", rep);
+			}
+		}
 	}
 }

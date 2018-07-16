@@ -21,7 +21,6 @@ public class InGameUI : MonoBehaviour
 	void Start()
 	{
 		_scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-		_gameManager = GameManager.GetComponent<GameManager>();
 		_gameManagerLocal = GameManagerLocal.GetComponent<GameManagerLocal>();
 	}
 
@@ -29,9 +28,15 @@ public class InGameUI : MonoBehaviour
 	{
 		Team1ScoreText.text = _scoreManager.TextPrefix + _scoreManager.GetTeamTotalMoney(1);
 		Team2ScoreText.text = _scoreManager.TextPrefix + _scoreManager.GetTeamTotalMoney(2);
+		
 		if (_gameManager != null)
 		{
 			TimeRemainingText.text = _gameManager.TimeRemaining + "s";
+		}
+		else
+		{
+			// do this in the update as it may be activated later
+			_gameManager = GameManager.GetComponent<GameManager>();
 		}
 		if (_gameManagerLocal != null)
 		{

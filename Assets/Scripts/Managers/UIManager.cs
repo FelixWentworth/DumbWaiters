@@ -47,17 +47,20 @@ public class UIManager : MonoBehaviour {
 	void Start()
 	{
 		//SetState(UIState.Menu);
-		if (MenuManager.NetworkAddress != "")
+		if (NetworkManager.singleton != null)
 		{
-			NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
-			NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
-			NetworkManager.singleton.StartClient();
-		}
-		else
-		{
-			//NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
-			NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
-			NetworkManager.singleton.StartServer();
+			if (MenuManager.NetworkAddress != "")
+			{
+				NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
+				NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
+				NetworkManager.singleton.StartClient();
+			}
+			else
+			{
+				//NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
+				NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
+				NetworkManager.singleton.StartServer();
+			}
 		}
 	}
 
@@ -76,17 +79,18 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
-	public void SetState(UIState state)
+	public GameObject SetState(UIState state)
 	{
 		if (CurrentState != (int) state)
 		{
 			CurrentState = (int) state;
-			GoToState((UIState) CurrentState);
+			return GoToState((UIState) CurrentState);
 		}
+		return null;
 	}
 
 
-	private void GoToState(UIState state)
+	private GameObject GoToState(UIState state)
 	{
 		DisableStates();
 		var newState = _gameUI.UI.First(ui => ui.State == state);
@@ -94,7 +98,9 @@ public class UIManager : MonoBehaviour {
 		{
 			newState.Parent.SetActive(true);
 			_activeUiObject = newState;
+			return newState.Parent;
 		}
+		return null;
 	}
 
 	private void DisableStates()

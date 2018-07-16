@@ -38,6 +38,8 @@ public class GameManager : NetworkBehaviour
 
 	public GameObject ServerScene;
 
+	private int _winningRep = 100;
+
 	void Start()
 	{
 		SetupGame();
@@ -71,7 +73,11 @@ public class GameManager : NetworkBehaviour
 
 			if (_timeAvailable <= 0f)
 			{
-				// HACK stop gameplay
+				Debug.Log("Game Over");
+				_uiManager.SetState(UIManager.UIState.GameOver).GetComponent<GameOverUI>().Show(_scoreManager.GetTeamMoney(1), _scoreManager.GetTeamMoney(2));
+
+				DistributeMoney();
+				_timeAvailable = 1f;
 				Time.timeScale = 0f;
 			}
 
@@ -84,6 +90,16 @@ public class GameManager : NetworkBehaviour
 		{
 			_startGame = true;
 			Time.timeScale = 1f;
+		}
+	}
+
+	private void DistributeMoney()
+	{
+		var players = Object.FindObjectsOfType<CommandHandler>();
+		foreach (var commandHandler in players)
+		{
+			commandHandler.RpcGameFinished(_scoreManager.GetTeamTotalMoney(1), _scoreManager.GetTeamTotalMoney(2),
+				_scoreManager.GetWinningTeam(), _winningRep);
 		}
 	}
 

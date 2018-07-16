@@ -10,9 +10,6 @@ public class NetworkingUI : NetworkBehaviour
 	void Start()
 	{
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-	}
-	void Update()
-	{
 		if (isClient)
 		{
 			_uiManager.SetState(UIManager.UIState.DeviceControls);
@@ -22,4 +19,5 @@ public class NetworkingUI : NetworkBehaviour
 			_uiManager.SetState(UIManager.UIState.Game);
 		}
 	}
+	
 }

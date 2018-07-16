@@ -49,13 +49,11 @@ public class NPC : MonoBehaviour
 	void Update()
 	{
 		
-		
-
 		if (transform.position == _seat.transform.position && RequestContainer != null && RequestContainer.transform.childCount == 0)
 		{
 			// Todo move call to a more managed place
 			// request the first item
-			var requestSprite = GameObject.Find("Foods").GetComponent<FoodConfig>().GetFoodSprite(_requests[0]);
+			var requestSprite = GameObject.Find("FoodsStarter").GetComponent<FoodConfig>().GetFoodSprite(_requests[0]);
 			Instantiate(requestSprite, RequestContainer.transform);
 		}
 

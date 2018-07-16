@@ -1,4 +1,5 @@
-﻿using PlayGen.SUGAR.Unity;
+﻿using System.Linq;
+using PlayGen.SUGAR.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +11,18 @@ public class SugarUI : MonoBehaviour
 	/// </summary>
 	public Text Username;
 
+	public Image GroupIcon;
+
+	private Groups _groups;
+
 	void Start()
 	{
+		_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
 		//var isDevice = Application.platform != RuntimePlatform.WindowsEditor;
 		var isDevice = Application.platform == RuntimePlatform.Android ||
 		               Application.platform == RuntimePlatform.IPhonePlayer;
 
-		if (true || isDevice && SUGARManager.CurrentUser == null)
+		if (SUGARManager.CurrentUser == null)
 		{
 			SUGARManager.Account.DisplayPanel(OnSuccess);
 		}
@@ -27,10 +33,31 @@ public class SugarUI : MonoBehaviour
 		if (success)
 		{
 			Username.text = SUGARManager.CurrentUser.Name;
-			if (SUGARManager.CurrentGroup == null)
+			SUGARManager.UserGroup.GetGroupsList(OnGetGroupList);
+		}
+	}
+
+	private void OnGetGroupList(bool success)
+	{
+		if (success)
+		{
+			var inGroup = SUGARManager.UserGroup.Groups.Any(g => _groups.GroupIds().Contains(g.Actor.Id));
+			if (!inGroup)
 			{
 				GameObject.Find("MenuManager").GetComponent<MenuManager>().ShowSelectGroupScreen();
-				// the user has not joined a group, Select a group
+			}
+		}
+	}
+
+	void LateUpdate()
+	{
+		if (SUGARManager.CurrentUser != null)
+		{
+			Username.text = SUGARManager.CurrentUser.Name;
+			if (SUGARManager.UserGroup.Groups.Any() && _groups != null)
+			{
+				var id = SUGARManager.UserGroup.Groups[0].Actor.Id;
+				GroupIcon.sprite = _groups.GetSpriteById(id);
 			}
 		}
 	}

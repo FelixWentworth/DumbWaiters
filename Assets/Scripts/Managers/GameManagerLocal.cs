@@ -69,7 +69,7 @@ public class GameManagerLocal : MonoBehaviour
 			if (_timeAvailable <= 0f)
 			{
 				// HACK stop gameplay
-				Time.timeScale = 0f;
+				_uiManager.SetState(UIManager.UIState.GameOver).GetComponent<GameOverUI>().Show(_scoreManager.GetTeamMoney(1), _scoreManager.GetTeamMoney(2));
 			}
 
 			if (Input.GetKeyDown(KeyCode.R))

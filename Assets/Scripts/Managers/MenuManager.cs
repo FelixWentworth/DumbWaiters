@@ -8,17 +8,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-	[Serializable]
-	public struct SUGARGroup
-	{
-		public string Name;
-		public int Id;
-		public Sprite Icon;
-	}
-
-	public SUGARGroup Group1;
-	public SUGARGroup Group2;
-	public SUGARGroup Group3;
+	private Groups _groups;
 
 	public GameObject NetworkInformation;
 	public InputField NetworkAddressInput;
@@ -34,6 +24,7 @@ public class MenuManager : MonoBehaviour
 
 	void Start()
 	{
+		_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
 		NetworkInformation.SetActive(false);
 		HostInformation.SetActive(false);
 		SelectGroupScreen.SetActive(false);
@@ -96,21 +87,10 @@ public class MenuManager : MonoBehaviour
 		Application.Quit();
 	}
 
-	public void Btn_JoinGroup1()
+	public void Btn_JoinGroup(int num)
 	{
-		SUGARManager.UserGroup.AddGroup(Group1.Id, false);
-		HideSelectGroupScreen();
-	}
-
-	public void Btn_JoinGroup2()
-	{
-		SUGARManager.UserGroup.AddGroup(Group2.Id, false);
-		HideSelectGroupScreen();
-	}
-
-	public void Btn_JoinGroup3()
-	{
-		SUGARManager.UserGroup.AddGroup(Group3.Id, false);
+		var group = _groups.GetGroupId(num);
+		SUGARManager.UserGroup.AddGroup(group, false);
 		HideSelectGroupScreen();
 	}
 }

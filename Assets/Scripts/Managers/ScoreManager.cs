@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
 	public Color Team1Color;
 	public Color Team2Color;
 
-	class TeamMoney
+	public class TeamMoney
 	{
 		public int Team;
 		public int BaseMoney { get; set; }
@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
 		}
 	}
 
-	private TeamMoney GetTeamMoney(int team)
+	public TeamMoney GetTeamMoney(int team)
 	{
 		return _teamMoney.First(t => t.Team == team);
 	}
@@ -48,6 +48,17 @@ public class ScoreManager : MonoBehaviour
 			return 0;
 		var teamMoney = _teamMoney.First(t => t.Team == team);
 		return teamMoney.BaseMoney + teamMoney.Tips;
+	}
+
+	public int GetWinningTeam()
+	{
+		var team1 = GetTeamTotalMoney(1);
+		var team2 = GetTeamTotalMoney(2);
+		if (team1 > team2)
+			return 1;
+		if (team2 > team1)
+			return 2;
+		return 0;
 	}
 
 	public void CustomerLeft(int team, int requestsCount, Vector3 location)
