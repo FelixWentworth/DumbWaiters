@@ -36,6 +36,8 @@ public class GameManager : NetworkBehaviour
 	public int PlayerCount;
 	public Dictionary<int, Player> ConnectedPlayers = new Dictionary<int, Player>();
 
+	public GameObject ServerScene;
+
 	void Start()
 	{
 		SetupGame();
@@ -43,6 +45,7 @@ public class GameManager : NetworkBehaviour
 
 	void Update()
 	{
+		ServerScene.SetActive(isServer);
 		if (isServer && _startGame)
 		{
 			if (_current <= 0f)
@@ -91,9 +94,6 @@ public class GameManager : NetworkBehaviour
 		_scoreManager.Setup(2);
 
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-		// Create our players
-		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(1, Team1Material);
-		//Instantiate(PlayerGameObject, Vector3.up, Quaternion.identity).GetComponent<Player>().Set(2, Team2Material);
 	}
 
 	public static FoodConfig.FoodType GetRandomFood()

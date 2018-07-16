@@ -11,15 +11,18 @@ public class InGameUI : MonoBehaviour
 	public Text TimeRemainingText;
 
 	private ScoreManager _scoreManager;
+
+	public GameObject GameManager;
+	public GameObject GameManagerLocal;
+
 	private GameManager _gameManager;
 	private GameManagerLocal _gameManagerLocal;
 
 	void Start()
 	{
 		_scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-		_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		_gameManagerLocal = GameObject.Find("GameManagerLocal").GetComponent<GameManagerLocal>();
-		
+		_gameManager = GameManager.GetComponent<GameManager>();
+		_gameManagerLocal = GameManagerLocal.GetComponent<GameManagerLocal>();
 	}
 
 	void LateUpdate()

@@ -2,6 +2,7 @@
 using PlayGen.SUGAR.Unity;
 using UnityEngine.UI;
 using PlayGen.Unity.Utilities.BestFit;
+using UnityEngine;
 
 public class AccountInterface : BaseAccountInterface
 {
@@ -12,6 +13,7 @@ public class AccountInterface : BaseAccountInterface
 	{
 		DoBestFit();
 		BestFit.ResolutionChange += DoBestFit;
+		_name.text = PlayerPrefs.GetString("SUGAR_Username");
 	}
 
 	/// <summary>
@@ -20,6 +22,7 @@ public class AccountInterface : BaseAccountInterface
 	private void OnDisable()
 	{
 		BestFit.ResolutionChange -= DoBestFit;
+		PlayerPrefs.SetString("SUGAR_Username", _name.text);
 	}
 
 	/// <summary>

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class UIManager : MonoBehaviour {
 
@@ -46,6 +47,18 @@ public class UIManager : MonoBehaviour {
 	void Start()
 	{
 		//SetState(UIState.Menu);
+		if (MenuManager.NetworkAddress != "")
+		{
+			NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
+			NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
+			NetworkManager.singleton.StartClient();
+		}
+		else
+		{
+			//NetworkManager.singleton.networkAddress = MenuManager.NetworkAddress;
+			NetworkManager.singleton.networkPort = MenuManager.NetworkPort;
+			NetworkManager.singleton.StartServer();
+		}
 	}
 
 	void LateUpdate()

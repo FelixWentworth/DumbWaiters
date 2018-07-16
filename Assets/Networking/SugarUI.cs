@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using PlayGen.SUGAR.Unity;
+﻿using PlayGen.SUGAR.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +16,7 @@ public class SugarUI : MonoBehaviour
 		var isDevice = Application.platform == RuntimePlatform.Android ||
 		               Application.platform == RuntimePlatform.IPhonePlayer;
 
-		if (isDevice && SUGARManager.CurrentUser == null)
+		if (true || isDevice && SUGARManager.CurrentUser == null)
 		{
 			SUGARManager.Account.DisplayPanel(OnSuccess);
 		}
@@ -29,6 +27,11 @@ public class SugarUI : MonoBehaviour
 		if (success)
 		{
 			Username.text = SUGARManager.CurrentUser.Name;
+			if (SUGARManager.CurrentGroup == null)
+			{
+				GameObject.Find("MenuManager").GetComponent<MenuManager>().ShowSelectGroupScreen();
+				// the user has not joined a group, Select a group
+			}
 		}
 	}
 }

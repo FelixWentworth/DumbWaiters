@@ -83,9 +83,10 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 0
   m_OfflineScene: GameScene
   m_OnlineScene: GameScene
-  m_SpawnPrefabs: []
-  m_CustomConfig: 0
-  m_MaxConnections: 4
+  m_SpawnPrefabs:
+  - {fileID: 1851482269522172, guid: 34ac5221f3bb5be40b94977052c95198, type: 2}
+  m_CustomConfig: 1
+  m_MaxConnections: 8
   m_ConnectionConfig:
     m_PacketSize: 1440
     m_FragmentSize: 500
@@ -126,12 +127,12 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000002000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
-  m_MaxBufferedPackets: 16
+  m_MaxBufferedPackets: 512
   m_AllowFragmentation: 1
   m_MatchHost: mm.unet.unity3d.com
   m_MatchPort: 443

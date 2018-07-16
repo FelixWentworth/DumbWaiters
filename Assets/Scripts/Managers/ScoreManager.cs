@@ -44,6 +44,8 @@ public class ScoreManager : MonoBehaviour
 
 	public int GetTeamTotalMoney(int team)
 	{
+		if (!_teamMoney.Any())
+			return 0;
 		var teamMoney = _teamMoney.First(t => t.Team == team);
 		return teamMoney.BaseMoney + teamMoney.Tips;
 	}
