@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 1493326051, guid: a68d5202d3713b54d9346a2ffece787b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interface: {fileID: 114000013210295108, guid: e29d7a7dd4a690245a2e6d8cf00df004,
+  _interface: {fileID: 114401919038427288, guid: e29d7a7dd4a690245a2e6d8cf00df004,
     type: 2}
   _positionCount: 10
   _currentFilter: 0
@@ -242,11 +242,11 @@ MonoBehaviour:
   m_Script: {fileID: -2015201922, guid: a68d5202d3713b54d9346a2ffece787b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseAddress: http://localhost:59400/
+  _baseAddress: http://localhost59400/
   _gameToken: Dumb Waiters
   _gameId: 2
   _uiBlocker: {fileID: 1823420820520756, guid: 32aeda71493f8f843ac0595a41de113d, type: 2}
-  _useBlocker: 1
+  _useBlocker: 0
   _blockerClickClose: 1
   _uiSpinner: {fileID: 114457698309810782, guid: 225fde9262ab3a441a877acceec873ec,
     type: 2}

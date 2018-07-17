@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayGen.SUGAR.Common;
 using PlayGen.SUGAR.Unity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,12 +23,17 @@ public class MenuManager : MonoBehaviour
 	public static string NetworkAddress;
 	public static int NetworkPort;
 
+	public MyGroupUI MyGroup;
+	public GameObject MyProfile;
+
 	void Start()
 	{
 		_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
 		NetworkInformation.SetActive(false);
 		HostInformation.SetActive(false);
 		SelectGroupScreen.SetActive(false);
+		MyGroup.gameObject.SetActive(false);
+		MyProfile.SetActive(false);
 	}
 
 	public void Btn_JoinLanGame()
@@ -69,7 +75,7 @@ public class MenuManager : MonoBehaviour
 
 	public void Btn_Settings()
 	{
-		// TODO implement
+		// TODO add
 	}
 
 	public void ShowSelectGroupScreen()
@@ -82,9 +88,34 @@ public class MenuManager : MonoBehaviour
 		SelectGroupScreen.SetActive(false);
 	}
 
-	public void Btn_QuitGaem()
+	public void Btn_MyGroup()
 	{
-		Application.Quit();
+		
+	}
+
+	public void Btn_ShowMyProfile()
+	{
+		var myGroup = GameObject.Find("SUGARUI").GetComponent<SugarUI>().MyGroupData;
+		MyGroup.Show(myGroup);
+		MyGroup.gameObject.SetActive(true);
+		MyProfile.SetActive(true);
+	}
+
+	public void Btn_CloseMyProfile()
+	{
+		MyGroup.gameObject.SetActive(false);
+		MyProfile.SetActive(false);
+	}
+
+	public void Btn_ShowLeaderboard()
+	{
+		//SUGARManager.Leaderboard.Display("TotalReputation", LeaderboardFilterType.Top);
+		SUGARManager.GameLeaderboard.DisplayGameList();
+	}
+
+	public void Btn_ShowAchievements()
+	{
+		SUGARManager.Evaluation.DisplayAchievementList();
 	}
 
 	public void Btn_JoinGroup(int num)
@@ -92,5 +123,10 @@ public class MenuManager : MonoBehaviour
 		var group = _groups.GetGroupId(num);
 		SUGARManager.UserGroup.AddGroup(group, false);
 		HideSelectGroupScreen();
+	}
+
+	public void Btn_QuitGame()
+	{
+		Application.Quit();
 	}
 }

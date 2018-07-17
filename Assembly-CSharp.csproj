@@ -94,6 +94,8 @@
     <Compile Include="Assets\Scripts\UI\DeviceControls.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverUI.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MyGroupUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MyProfileUI.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\AccountInterface.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\EvaluationItemInterface.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\EvaluationListInterface.cs" />

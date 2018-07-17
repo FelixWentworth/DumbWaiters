@@ -107,9 +107,12 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 				_evaluationItems[i].SetText(evaluationList[i], Mathf.Approximately(evaluationList[i].Progress, 1.0f));
 			}
 		}
-		_pageNumberText.text = Localization.GetAndFormat("PAGE", false, _pageNumber + 1);
-		_previousButton.interactable = _pageNumber > 0;
-		_nextButton.interactable = SUGARManager.Evaluation.Progress.Count > (_pageNumber + 1) * _evaluationItems.Length;
+		if (_pageNumberText != null)
+		{
+			_pageNumberText.text = Localization.GetAndFormat("PAGE", false, _pageNumber + 1);
+		}
+		_previousButton.gameObject.SetActive(_pageNumber > 0);
+		_nextButton.gameObject.SetActive(SUGARManager.Evaluation.Progress.Count > (_pageNumber + 1) * _evaluationItems.Length);
 		_evaluationItems.Select(t => t.gameObject).BestFit();
 	}
 

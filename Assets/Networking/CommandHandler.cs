@@ -118,8 +118,9 @@ public class CommandHandler : NetworkBehaviour
 			// if its a tie, still award the rep
 			if (winningTeam == team || winningTeam == 0)
 			{
-				// TODO check if we need to pull game data firts
-				SUGARManager.GameData.Send("Reputation", rep);
+				SUGARManager.GameData.Send("TotalReputation", rep);
+				SUGARManager.GameData.Send("GameWinReputation", rep);
+				SUGARManager.GameData.Send("GameWin", 1);
 			}
 		}
 	}

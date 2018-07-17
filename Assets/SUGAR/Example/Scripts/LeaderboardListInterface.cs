@@ -66,6 +66,7 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	/// </summary>
 	private void OnDisable()
 	{
+		SUGARManager.Leaderboard.Hide();
 		BestFit.ResolutionChange -= DoBestFit;
 		Localization.LanguageChange -= OnLanguageChange;
 	}
@@ -107,7 +108,7 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 				_leaderboardButtons[i].onClick.RemoveAllListeners();
 				_leaderboardButtons[i].GetComponentInChildren<Text>().text = leaderboardList[i].Name;
 				var token = leaderboardList[i].Token;
-				_leaderboardButtons[i].onClick.AddListener(delegate { SUGARManager.Leaderboard.Display(token, SUGARManager.Leaderboard.CurrentFilter); });
+				_leaderboardButtons[i].onClick.AddListener(delegate { DisplayLeaderboard(token, SUGARManager.Leaderboard.CurrentFilter); });
 				_leaderboardButtons[i].gameObject.SetActive(true);
 			}
 		}
@@ -115,6 +116,12 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 		_pageNumberText.text = Localization.GetAndFormat("PAGE", false, _pageNumber + 1);
 		_previousButton.interactable = _pageNumber > 0;
 		DoBestFit();
+	}
+
+	private void DisplayLeaderboard(string token, LeaderboardFilterType filter)
+	{
+		Debug.Log("ClickPressed");
+		SUGARManager.Leaderboard.Display(token, filter);
 	}
 
 	/// <summary>
