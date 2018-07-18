@@ -12,16 +12,15 @@ public class InGameUI : MonoBehaviour
 
 	private ScoreManager _scoreManager;
 
-	public GameObject GameManager;
-	public GameObject GameManagerLocal;
+	[SerializeField]
+	private GameManagerBase _gameManager;
 
-	private GameManager _gameManager;
-	private GameManagerLocal _gameManagerLocal;
+	public GameObject StartGameButton;
 
 	void Start()
 	{
+		StartGameButton.SetActive(true);
 		_scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-		_gameManagerLocal = GameManagerLocal.GetComponent<GameManagerLocal>();
 	}
 
 	void LateUpdate()
@@ -33,14 +32,14 @@ public class InGameUI : MonoBehaviour
 		{
 			TimeRemainingText.text = _gameManager.TimeRemaining + "s";
 		}
-		else
+	}
+
+	public void Btn_StartGame()
+	{
+		if (_scoreManager != null)
 		{
-			// do this in the update as it may be activated later
-			_gameManager = GameManager.GetComponent<GameManager>();
-		}
-		if (_gameManagerLocal != null)
-		{
-			TimeRemainingText.text = _gameManagerLocal.TimeRemaining + "s";
+			_gameManager.StartGame();
+			StartGameButton.SetActive(false);
 		}
 	}
 }

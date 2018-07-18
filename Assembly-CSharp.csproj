@@ -74,7 +74,9 @@
     <Compile Include="Assets\Scripts\Groups\GroupUI.cs" />
     <Compile Include="Assets\Scripts\HACK_FOOD_CONFIG.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManagerBase.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManagerLocal.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManagerNetworkCommands.cs" />
     <Compile Include="Assets\Scripts\Managers\InteractionManager.cs" />
     <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
@@ -90,12 +92,16 @@
     <Compile Include="Assets\Scripts\Mechanics\Interactables\Sabotage.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Interactables\Trash.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Seat.cs" />
+    <Compile Include="Assets\Scripts\Mechanics\ShopItems.cs" />
     <Compile Include="Assets\Scripts\Mechanics\Table.cs" />
+    <Compile Include="Assets\Scripts\UI\BuyItemsUI.cs" />
     <Compile Include="Assets\Scripts\UI\DeviceControls.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverUI.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
+    <Compile Include="Assets\Scripts\UI\ItemContainerUI.cs" />
     <Compile Include="Assets\Scripts\UI\MyGroupUI.cs" />
     <Compile Include="Assets\Scripts\UI\MyProfileUI.cs" />
+    <Compile Include="Assets\Scripts\UI\NewBehaviourScript.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\AccountInterface.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\EvaluationItemInterface.cs" />
     <Compile Include="Assets\SUGAR\Example\Scripts\EvaluationListInterface.cs" />

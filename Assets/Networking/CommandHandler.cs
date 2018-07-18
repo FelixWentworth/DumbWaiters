@@ -106,6 +106,31 @@ public class CommandHandler : NetworkBehaviour
 
 	}
 
+	public void SendCreateItem(int item)
+	{
+		if (isLocalPlayer)
+		{
+			CmdSpawnModifier(Id, item);
+		}
+	}
+
+	[Command]
+	private void CmdSpawnModifier(int playerId, int item)
+	{
+		var gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		var player = gm.ConnectedPlayers[playerId];
+
+		if (player != null)
+		{
+			var obj = GameObject.Find("ItemManager").GetComponent<ShopItems>().AvailableItems[item].ItemGameObject;
+			Instantiate(obj, player.transform.position, Quaternion.identity);
+		}
+		else
+		{
+			Debug.Log(playerId + "does not exist in the list");
+		}
+	}
+
 	[ClientRpc]
 	public void RpcGameFinished(int team1Money, int team2Money, int winningTeam, int rep)
 	{

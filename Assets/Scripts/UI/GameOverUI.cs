@@ -23,6 +23,8 @@ public class GameOverUI : MonoBehaviour
 	public Text BlueTipsValueText;
 	public Text RedTipsValueText;
 
+	public GameManagerBase GameManager;
+
 	// Testing
 	//void Start()
 	//{
@@ -71,6 +73,6 @@ public class GameOverUI : MonoBehaviour
 
 	public void Btn_Menu()
 	{
-		SceneManager.LoadScene(0);
+		GameManager.GoToMenu();
 	}
 }

@@ -46,7 +46,6 @@ public class UIManager : MonoBehaviour {
 
 	void Start()
 	{
-		//SetState(UIState.Menu);
 		if (NetworkManager.singleton != null)
 		{
 			if (MenuManager.NetworkAddress != "")

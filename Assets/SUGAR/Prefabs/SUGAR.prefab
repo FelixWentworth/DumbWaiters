@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: -2015201922, guid: a68d5202d3713b54d9346a2ffece787b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseAddress: http://localhost59400/
+  _baseAddress: http://localhost:59400/
   _gameToken: Dumb Waiters
   _gameId: 2
   _uiBlocker: {fileID: 1823420820520756, guid: 32aeda71493f8f843ac0595a41de113d, type: 2}

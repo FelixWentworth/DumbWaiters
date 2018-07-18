@@ -34,6 +34,14 @@ public class DeviceControls : MonoBehaviour
 		}
 	}
 
+	public void SendCreateItem(int item)
+	{
+		if (_commandHandler != null)
+		{
+			_commandHandler.SendCreateItem(item);
+		}
+	}
+
 	public void SetCommandHandler(CommandHandler handler)
 	{
 		_commandHandler = handler;

@@ -24,7 +24,11 @@ public class SugarUI : MonoBehaviour
 
 	void Start()
 	{
-		_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
+		var configObj = GameObject.Find("GroupConfig");
+		if (configObj != null)
+		{
+			_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
+		}
 		//var isDevice = Application.platform != RuntimePlatform.WindowsEditor;
 		var isDevice = Application.platform == RuntimePlatform.Android ||
 		               Application.platform == RuntimePlatform.IPhonePlayer;
@@ -69,9 +73,12 @@ public class SugarUI : MonoBehaviour
 				SetCurrentGroupData();
 			}
 
-			UserMoney.text = SUGARManager.Resource.UserGameResources.ContainsKey("Money")
-				? "$" + SUGARManager.Resource.UserGameResources["Money"]
-				: "$0";
+			if (UserMoney != null)
+			{
+				UserMoney.text = SUGARManager.Resource.UserGameResources.ContainsKey("Money")
+					? "$" + SUGARManager.Resource.UserGameResources["Money"]
+					: "$0";
+			}
 		}
 	}
 
