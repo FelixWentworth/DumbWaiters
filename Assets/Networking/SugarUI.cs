@@ -39,6 +39,11 @@ public class SugarUI : MonoBehaviour
 		}
 	}
 
+	public void UpdateGroupMoney(Action<List<ResourceResponse>> callback)
+	{
+		//SUGARManager.Resource.Get(callback);
+	}
+
 	private void OnSuccess(bool success)
 	{
 		if (success)
@@ -97,25 +102,9 @@ public class SugarUI : MonoBehaviour
 		if (inGroup)
 		{
 			var myGroup = SUGARManager.UserGroup.Groups.First(g => _groups.GroupIds().Contains(g.Actor.Id));
-			MyGroupData = new GroupData();
 			MyGroupData.Id = myGroup.Actor.Id;
 			MyGroupData.Name = myGroup.Actor.Name;
 			MyGroupData.Description = myGroup.Actor.Description;
-
-			//SUGARManager.Resource.Get(Result);
 		}
 	}
-
-	//private void Result(List<ResourceResponse> resourceResponses)
-	//{
-	//	var groupResources = resourceResponses.Where(r => r.ActorId == MyGroupData.Id);
-	//	if (groupResources.Any())
-	//	{
-	//		MyGroupData.Money = groupResources.First(r => r.Key == "Money").Quantity;
-	//	}
-	//	else
-	//	{
-	//		MyGroupData.Money = 0;
-	//	}
-	//}
 }

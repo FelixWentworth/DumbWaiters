@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Groups : MonoBehaviour {
 
+	private static Groups _instance;
+
 	[Serializable]
 	public class SUGARGroup
 	{
@@ -22,7 +24,15 @@ public class Groups : MonoBehaviour {
 	}
 	void Start()
 	{
-		DontDestroyOnLoad(this);
+		if (_instance == null)
+		{
+			_instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 
 	public Sprite GetSpriteById(int id)

@@ -147,6 +147,7 @@ public class CommandHandler : NetworkBehaviour
 				SUGARManager.GameData.Send("GameWinReputation", rep);
 				SUGARManager.GameData.Send("GameWin", 1);
 			}
+			SUGARManager.GameData.Send("GameFinished", 1);
 		}
 	}
 }

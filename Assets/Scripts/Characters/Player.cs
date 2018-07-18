@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
 		if (nearest != null)
 		{
 			Debug.Log(nearest);
-			var holdingObj = new GameObject();
+			GameObject holdingObj;
 
 			switch (nearest.GetInteractionType())
 			{
