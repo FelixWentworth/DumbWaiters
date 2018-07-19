@@ -25,7 +25,7 @@ public class MyGroupUI : MonoBehaviour
 		NameText.text = data.Name;
 		DescriptionText.text = data.Description;
 		MembersText.text = data.Members;
-		MoneyText.text = "Loading";
+		MoneyText.text = "$" + data.Money;
 
 		GameObject.Find("SUGARUI").GetComponent<SugarUI>().UpdateGroupMoney(Result);
 	}
@@ -36,8 +36,6 @@ public class MyGroupUI : MonoBehaviour
 			return;
 		_requestAmount = Convert.ToInt64(MoneyInputField.text);
 		var currentUserId = SUGARManager.CurrentUser.Id;
-
-		//SUGARManager.CurrentUser.
 
 		//transfer the money
 		//SUGARManager.Resource.Add("Money", _requestAmount, AddSuccess);
