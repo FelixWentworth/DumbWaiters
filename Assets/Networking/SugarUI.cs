@@ -104,7 +104,7 @@ public class SugarUI : MonoBehaviour
 			MyGroupData.Id = myGroup.Actor.Id;
 			MyGroupData.Name = myGroup.Actor.Name;
 			MyGroupData.Description = myGroup.Actor.Description;
-			MyGroupData.Members = SUGARManager.Client.Group.Get(myGroup.Actor.Id).MemberCount.ToString();
+			//MyGroupData.Members = SUGARManager.Client.Group.Get(myGroup.Actor.Id).MemberCount.ToString();
 			//MyGroupData.Money = Convert.ToInt64(SUGARManager.Client.Resource.Get(2, myGroup.Actor.Id, new[] {"Money"}));
 		}
 	}

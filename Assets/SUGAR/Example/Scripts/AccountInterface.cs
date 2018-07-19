@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using PlayGen.SUGAR.Unity;
 using UnityEngine.UI;
-using PlayGen.Unity.Utilities.BestFit;
+using PlayGen.Unity.Utilities.Text;
 using UnityEngine;
 
 public class AccountInterface : BaseAccountInterface
