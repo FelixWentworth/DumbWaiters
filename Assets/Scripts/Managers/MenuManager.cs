@@ -121,6 +121,8 @@ public class MenuManager : MonoBehaviour
 	public void Btn_JoinGroup(int num)
 	{
 		var group = _groups.GetGroupId(num);
+		Debug.Log(SUGARManager.CurrentUser.Id);
+		Debug.Log(group);
 		SUGARManager.UserGroup.AddGroup(group, false);
 		HideSelectGroupScreen();
 	}
