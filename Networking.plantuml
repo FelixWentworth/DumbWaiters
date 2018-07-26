@@ -1,0 +1,47 @@
+@startuml
+participant Client
+participant SUGAR
+participant Server
+Server -> Server : Host Game
+activate Server
+Client -> SUGAR : Login/ Register
+activate SUGAR
+SUGAR -> SUGAR : LoginOrRegister(AccountRequest) 
+SUGAR --> Client : Success
+deactivate SUGAR
+Client -> Server : Join Game
+activate Client
+Server -> Server : Create player Object
+activate Server
+Server --> Client : Callback [PlayerId]
+deactivate Server
+Client --> Client : Set PlayerId
+
+Server <- : Start Game
+
+loop _current < TimeAvailable
+	Client -> Server : SendCommand(PlayerId)
+	Server -> Server : Handle Command
+	activate Server
+	alt Success
+		Server --> Server : Move Player Object
+	end
+	Server --> Client : Success
+	deactivate Server
+end
+
+Server -> Server : Find Winning Team
+activate Server
+Server -> Server : Show Game Over
+Server -> Client : Award Money, Reputation
+deactivate Server
+Client -> SUGAR : Update Resources, GameData
+activate SUGAR
+SUGAR -> SUGAR : AddOrUpdate(Resource)
+deactivate SUGAR
+
+Server <- : End Game
+Server --> Client : Disconnect
+deactivate Server
+deactivate Client
+@enduml

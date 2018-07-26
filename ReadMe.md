@@ -1,13 +1,11 @@
 # Dumb Waiters
-A competitive multiplayer game where players try to make the most money as a server in a restaurant. Teams can boost or sabotage other teams, providing more tips and better satisfied customers.
 
-Players can use their hard earned money to buy items in game, that can help them and sabotage the other team. 
-
-The Winning team is the one that gets the most money after the alotted time. 
-
-Reputation is awarded for winning games, completing achievements and for donating money to the group. Players reputation will dictate their level, the higher the players level, the more items they can buy in the shop.
-
-Before each game, players can also take money from the group to help lead them to victory. There are leaderboards for the players group so that they can see who has donated the most money and also who has taken the most money from the group.
+## About the game
+- Dumb waiters is a competitive multiplayer game where players try to make the most money as a server in a restaurant. Teams can boost or sabotage other teams, providing more tips and better satisfied customers.
+- Players can use their hard earned money to buy items in game, that can help them and sabotage the other team. 
+- The Winning team is the one that gets the most money after the alotted time. 
+- Reputation is awarded for winning games, completing achievements and for donating money to the group. Players reputation will dictate their level, the higher the players level, the more items they can buy in the shop.
+- Before each game, players can also take money from the group to help lead them to victory. There are leaderboards for the players group so that they can see who has donated the most money and also who has taken the most money from the group.
 
 ## Key Structure
 The unity project follows the following structure
@@ -34,11 +32,16 @@ The unity project follows the following structure
 - **SUGAR**: From [Unity Asset Store](https://assetstore.unity.com/packages/tools/network/sugar-social-gamification-107078)
 
 ### Groups
-The game contains 3 groups, these are interacted with similar to clans, a group of people working together to reach a common goal and aiding each other where possible, but without a user to user experience. Upon starting the game as a new user, the game checks if the player is in a group, and if not prompts them to join one. A player should only ever be in one group and should not be able to change. (similar to [pokemon go](http://pokemongo.wikia.com/wiki/Teams)).
+The game contains 3 groups, these are interacted with similar to clans, a group of people working together to reach a common goal and aiding each other where possible, but without a user to user experience. Upon starting the game as a new user, the game checks if the player is in a group, and if not prompts them to join one. A player should only ever be in one group and should not be able to change. (similar to [Pokémon Go](http://pokemongo.wikia.com/wiki/Teams)).
 
 Matchmaking will never take into account which group a player is part of, but players will be able to contribute to their group to obtain greater reputation and level up to get access to better items in the shop.
 
-### Server/Client Behaviour
+### Networking
+See Assets/Networking for networked scripts used within unity. When clients connect to the server they are provided with a player character in game, this uses the Assets/Networking/Player.prefab object which has the CommandHandler.cs class attached which has [LocalPlayerAuthority] to allow players to send commands to the server. The actual Player Character, found at Assets/Prefabs/Characters/PlayerCharacter.prefab acts as a dumb object and just receives commands from the server.
+
+#### Server/Client behaviour
+![Network Flow](Networking.png)
+
 The server for Dumb Waiters contains all the game logic, with clients being 'dumb' objects that are only able to send commands. Clients must log into SUGAR when they start the game, allowing for them to save their progress and resources, needed for making purchases and progressing in the game. During the main gameplay, the server acts as a shared screen, with all clients seeing a controller and inventory system that they can interact with on their mobile device. 
 
 The Server and Client implement UNET [Command](https://docs.unity3d.com/ScriptReference/Networking.CommandAttribute.html), [ClientRPC](https://docs.unity3d.com/ScriptReference/Networking.ClientRpcAttribute.html) and [TargetRPC](https://docs.unity3d.com/ScriptReference/Networking.TargetRpcAttribute.html) Attributes, when players connect to the server, they notify the server that they have connected, the server will then assign the player an Id that maps to a player created in the game. Then all successive commands only need to contain the Id of the player object for the Server to make changes to the correct object.
@@ -73,7 +76,7 @@ Dumb waiters is currently using SUGAR version 1.0.2 taken directly from the Asse
 - Handle Player Disconnection
 
 ### Updates
-- Update SUGAR unity to the latest version (1.1.0 includes remember login)
+- Update SUGAR unity to the latest version (1.1.0 includes remember login feature)
 
 ## Known Bugs
 - Currently players spawn on both client and server, this does not need to be the case
