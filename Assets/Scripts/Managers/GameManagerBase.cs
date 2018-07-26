@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManagerBase : MonoBehaviour {
 
-	protected float TimeAvailable = 10;
+	protected float TimeAvailable = 100;
 
 	public GameObject PlayerGameObject;
 

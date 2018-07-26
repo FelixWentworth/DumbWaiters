@@ -17,17 +17,18 @@ public class MyGroupUI : MonoBehaviour
 	public InputField MoneyInputField;
 
 	private int _id;
+	private bool _sending;
 	private long _requestAmount;
 
-	public void Show(SugarUI.GroupData data)
+	public void Show()
 	{
+		var data = GameObject.Find("SUGARUI").GetComponent<SugarUI>().UpdateGroupMoney();
+
 		_id = data.Id;
 		NameText.text = data.Name;
 		DescriptionText.text = data.Description;
 		MembersText.text = data.Members;
-		MoneyText.text = "Loading";
-
-		GameObject.Find("SUGARUI").GetComponent<SugarUI>().UpdateGroupMoney(Result);
+		MoneyText.text = "$" + data.Money;
 	}
 
 	public void Btn_Take()
@@ -35,47 +36,38 @@ public class MyGroupUI : MonoBehaviour
 		if (MoneyInputField.text == "")
 			return;
 		_requestAmount = Convert.ToInt64(MoneyInputField.text);
-		var currentUserId = SUGARManager.CurrentUser.Id;
-
-		//SUGARManager.CurrentUser.
-
+		_sending = false;
 		//transfer the money
-		//SUGARManager.Resource.Add("Money", _requestAmount, AddSuccess);
+		SUGARManager.Resource.TryTake(_id, "Money", _requestAmount, TransferSuccess);
 	}
 
 	private void TransferSuccess(bool b)
 	{
 		MoneyInputField.text = "";
-		GameObject.Find("SUGARUI").GetComponent<SugarUI>().UpdateGroupMoney(Result);
-	}
-
-	private void AddSuccess(bool b)
-	{
-		// TODO update ui
-		GameObject.Find("SUGARUI").GetComponent<SugarUI>().UpdateGroupMoney(Result);
+		if (b)
+		{
+			if (_sending)
+			{
+				SUGARManager.GameData.Send("TipReputation", _requestAmount * 2);
+				SUGARManager.GameData.Send("TipMoney", _requestAmount);
+				SUGARManager.GameData.Send("NetMoneyGiven", _requestAmount);
+			}
+			else
+			{
+				SUGARManager.GameData.Send("GroupMoneyTaken", _requestAmount);
+				SUGARManager.GameData.Send("NetMoneyGiven", -_requestAmount);
+			}
+			Show();
+		}
 	}
 
 	public void Btn_LeaveTip()
 	{
 		if (MoneyInputField.text == "")
 			return;
+		_sending = true;
 		_requestAmount = Convert.ToInt64(MoneyInputField.text);
 		SUGARManager.Resource.Transfer(_id, "Money", _requestAmount, TransferSuccess);
-		SUGARManager.GameData.Send("TipReputation", _requestAmount * 2);
-		SUGARManager.GameData.Send("TipMoney", _requestAmount);
 	}
 
-	private void Result(List<ResourceResponse> resourceResponses)
-	{
-		var groupResources = resourceResponses.Where(r => r.ActorId == _id);
-		if (groupResources.Any())
-		{
-			MoneyText.text = "$" +groupResources.First(r => r.Key == "Money").Quantity;
-		}
-		else
-		{
-			MoneyText.text = "$" + 0;
-		}
-
-	}
 }
