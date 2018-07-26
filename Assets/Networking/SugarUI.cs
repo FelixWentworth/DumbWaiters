@@ -38,9 +38,14 @@ public class SugarUI : MonoBehaviour
 		}
 	}
 
-	public void UpdateGroupMoney(Action<List<ResourceResponse>> callback)
+	public GroupData UpdateGroupMoney()
 	{
-		//SUGARManager.Resource.Get(callback);
+		if (MyGroupData == null && SUGARManager.CurrentUser != null)
+		{
+			SetCurrentGroupData();
+		}
+		MyGroupData.Money = Convert.ToInt64(SUGARManager.Client.Resource.Get(2, MyGroupData.Id, new[] { "Money" }).First(r => r.Key == "Money").Quantity);
+		return MyGroupData;
 	}
 
 	private void OnSuccess(bool success)
@@ -74,7 +79,6 @@ public class SugarUI : MonoBehaviour
 			{
 				var id = myGroups[0].Actor.Id;
 				GroupIcon.sprite = _groups.GetSpriteById(id);
-				SetCurrentGroupData();
 			}
 
 			if (UserMoney != null)
@@ -86,7 +90,7 @@ public class SugarUI : MonoBehaviour
 		}
 	}
 
-	public struct GroupData
+	public class GroupData
 	{
 		public int Id;
 		public string Name;
@@ -101,11 +105,12 @@ public class SugarUI : MonoBehaviour
 		if (inGroup)
 		{
 			var myGroup = SUGARManager.UserGroup.Groups.First(g => _groups.GroupIds().Contains(g.Actor.Id));
+			if (MyGroupData == null)
+				MyGroupData = new GroupData();
 			MyGroupData.Id = myGroup.Actor.Id;
 			MyGroupData.Name = myGroup.Actor.Name;
 			MyGroupData.Description = myGroup.Actor.Description;
-			//MyGroupData.Members = SUGARManager.Client.Group.Get(myGroup.Actor.Id).MemberCount.ToString();
-			//MyGroupData.Money = Convert.ToInt64(SUGARManager.Client.Resource.Get(2, myGroup.Actor.Id, new[] {"Money"}));
+			MyGroupData.Members = SUGARManager.Client.Group.Get(myGroup.Actor.Id).MemberCount.ToString();
 		}
 	}
 }

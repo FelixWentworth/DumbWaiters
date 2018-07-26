@@ -65,6 +65,11 @@
             Button used to trigger attempting registration. Can be left null.
             </summary>
         </member>
+        <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._rememberMeToggle">
+            <summary>
+            Toggle used to remember the current user login details for easy log in
+            </summary>
+        </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._closeButton">
             <summary>
             Button used to disable this object. Can be left null.
@@ -776,6 +781,12 @@
         <member name="M:PlayGen.SUGAR.Unity.ResourceUnityClient.Transfer(System.Int32,System.String,System.Int64,System.Action{System.Boolean},System.Boolean)">
             <summary>
             Transfer the resource with the key provided from the currently signed in user to the user with the provided id.
+            If globalResource is true, resource transferred will be global rather than for the game.
+            </summary>
+        </member>
+        <member name="M:PlayGen.SUGAR.Unity.ResourceUnityClient.TryTake(System.Int32,System.String,System.Int64,System.Action{System.Boolean},System.Boolean)">
+            <summary>
+            Attempt to Take a resource from an actor.
             If globalResource is true, resource transferred will be global rather than for the game.
             </summary>
         </member>
