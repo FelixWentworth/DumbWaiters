@@ -30,13 +30,6 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	private Button _nextButton;
 
 	/// <summary>
-	/// Text which displays the current page.
-	/// </summary>
-	[Tooltip("Text which displays the current page.")]
-	[SerializeField]
-	private Text _pageNumberText;
-
-	/// <summary>
 	/// The current page number.
 	/// </summary>
 	private int _pageNumber;
@@ -85,7 +78,6 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	protected override void Draw()
 	{
 		var leaderboardList = SUGARManager.GameLeaderboard.Leaderboards[SUGARManager.GameLeaderboard.CurrentActorType].ToList();
-		_nextButton.interactable = leaderboardList.Count > (_pageNumber + 1) * _leaderboardButtons.Length;
 		leaderboardList = leaderboardList.Skip(_pageNumber * _leaderboardButtons.Length).Take(_leaderboardButtons.Length).ToList();
 		if (!leaderboardList.Any() && _pageNumber > 0)
 		{
@@ -112,10 +104,12 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 				_leaderboardButtons[i].gameObject.SetActive(true);
 			}
 		}
-		_leaderboardType.text = SUGARManager.GameLeaderboard.CurrentActorType == ActorType.Undefined ? Localization.Get("COMBINED") : Localization.Get(SUGARManager.GameLeaderboard.CurrentActorType.ToString());
-		_pageNumberText.text = Localization.GetAndFormat("PAGE", false, _pageNumber + 1);
-		_previousButton.interactable = _pageNumber > 0;
+		_previousButton.gameObject.SetActive(_pageNumber > 0);
+		_nextButton.gameObject.SetActive(leaderboardList.Count > (_pageNumber + 1) * _leaderboardButtons.Length);
 		DoBestFit();
+
+		_userButton.gameObject.SetActive(SUGARManager.GameLeaderboard.CurrentActorType != ActorType.User);
+		_groupButton.gameObject.SetActive(SUGARManager.GameLeaderboard.CurrentActorType != ActorType.Group);
 	}
 
 	private void DisplayLeaderboard(string token, LeaderboardFilterType filter)

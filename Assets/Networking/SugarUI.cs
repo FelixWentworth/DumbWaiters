@@ -29,8 +29,6 @@ public class SugarUI : MonoBehaviour
 		{
 			_groups = GameObject.Find("GroupConfig").GetComponent<Groups>();
 		}
-		var isDevice = Application.platform == RuntimePlatform.Android ||
-		               Application.platform == RuntimePlatform.IPhonePlayer;
 
 		if (SUGARManager.CurrentUser == null)
 		{

@@ -36,6 +36,15 @@ public class MenuManager : MonoBehaviour
 		MyProfile.SetActive(false);
 	}
 
+	void OnEnable()
+	{
+		NetworkAddressInput.text = PlayerPrefs.GetString("PreviousNetworkAddress");
+		NetworkPortInput.text = PlayerPrefs.GetString("PreviousNetworkPort");
+
+		HostPortInput.text = PlayerPrefs.GetString("PreviousHostPort");
+
+	}
+
 	public void Btn_JoinLanGame()
 	{
 		NetworkInformation.SetActive(true);
@@ -54,6 +63,10 @@ public class MenuManager : MonoBehaviour
 
 	public void Btn_Connect()
 	{
+		// Save our text inputs
+		PlayerPrefs.SetString("PreviousNetworkAddress", NetworkAddressInput.text);
+		PlayerPrefs.SetString("PreviousNetworkPort", NetworkPortInput.text);
+
 		NetworkAddress = NetworkAddressInput.text;
 		NetworkPort = Convert.ToInt16(NetworkPortInput.text);
 
@@ -62,6 +75,9 @@ public class MenuManager : MonoBehaviour
 
 	public void Btn_Host()
 	{
+		// Save our text inputs
+		PlayerPrefs.SetString("PreviousHostPort", HostPortInput.text);
+
 		NetworkAddress = "";
 		NetworkPort = Convert.ToInt16(HostPortInput.text);
 
@@ -108,7 +124,7 @@ public class MenuManager : MonoBehaviour
 
 	public void Btn_ShowLeaderboard()
 	{
-		//SUGARManager.Leaderboard.Display("TotalReputation", LeaderboardFilterType.Top);
+		SUGARManager.GameLeaderboard.SetFilter(ActorType.Undefined);
 		SUGARManager.GameLeaderboard.DisplayGameList();
 	}
 
