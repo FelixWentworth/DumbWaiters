@@ -49,6 +49,7 @@ public class MyGroupUI : MonoBehaviour
 			if (_sending)
 			{
 				SUGARManager.GameData.Send("TipReputation", _requestAmount * 2);
+				SUGARManager.GameData.Send("TotalReputation", _requestAmount * 2);
 				SUGARManager.GameData.Send("TipMoney", _requestAmount);
 				SUGARManager.GameData.Send("NetMoneyGiven", _requestAmount);
 			}
