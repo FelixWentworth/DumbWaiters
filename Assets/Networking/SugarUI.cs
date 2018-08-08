@@ -32,7 +32,7 @@ public class SugarUI : MonoBehaviour
 
 		if (SUGARManager.CurrentUser == null)
 		{
-			SUGARManager.Account.DisplayPanel(OnSuccess);
+			SUGARManager.Account.DisplayLogInPanel(OnSuccess);
 		}
 	}
 

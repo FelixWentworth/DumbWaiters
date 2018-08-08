@@ -5,7 +5,7 @@ public class TestImplementation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SUGARManager.Account.DisplayPanel(success =>
+		SUGARManager.Account.DisplayLogInPanel(success =>
 		{
 
 		});

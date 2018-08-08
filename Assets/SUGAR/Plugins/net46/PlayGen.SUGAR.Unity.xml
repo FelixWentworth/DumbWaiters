@@ -6,43 +6,40 @@
     <members>
         <member name="T:PlayGen.SUGAR.Unity.AccountUnityClient">
             <summary>
-            Unity client for calls related to accounts
-            </summary>
-        </member>
-        <member name="F:PlayGen.SUGAR.Unity.AccountUnityClient._landscapeInterface">
-            <summary>
-            Landscape UI object for this unity client. Can be left null if not required.
-            </summary>
-        </member>
-        <member name="F:PlayGen.SUGAR.Unity.AccountUnityClient._portraitInterface">
-            <summary>
-            Portrait UI object for this unity client. Can be left null if not required.
+            Unity client for functionality related to signing in, registering and signing out.
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.AccountUnityClient.HasInterface">
             <summary>
-            Has a UI object been provided for this Unity Client?
+            Has an interface been provided for this Unity Client?
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.AccountUnityClient.IsActive">
             <summary>
-            Is there a UI object and if so is it currently active?
+            Is there an interface and if so is it currently active?
             </summary>
         </member>
-        <member name="M:PlayGen.SUGAR.Unity.AccountUnityClient.DisplayPanel(System.Action{System.Boolean})">
+        <member name="M:PlayGen.SUGAR.Unity.AccountUnityClient.DisplayLogInPanel(System.Action{System.Boolean})">
             <summary>
-            Displays UI object if provided and allowAutoLogin is false. Attempts automatic sign in using provided details if allowAutoLogin is true.
+            Displays interface if provided and allowAutoLogin is false. Attempts automatic sign in using provided details if allowAutoLogin is true.
             Note: allowAutoLogin is made false after automatic sign in is first attempted.
             </summary>
+            <param name="success">Callback which will result whether the user successfully signed in.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.AccountUnityClient.Hide">
             <summary>
             Hide the UI object if it is currently active.
             </summary>
         </member>
+        <member name="M:PlayGen.SUGAR.Unity.AccountUnityClient.Logout(System.Action{System.Boolean})">
+            <summary>
+            Sign out the currently signed in user
+            </summary>
+            <param name="success">Callback which will result whether the user successfully signed out.</param>
+        </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseAccountInterface">
             <summary>
-            Base abstract class for controlling the UI object related to accounts
+            Base abstract class for controlling the UI object related to user accounts.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._name">
@@ -57,17 +54,17 @@
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._loginButton">
             <summary>
-            Button used to trigger attempting signing in. Can be left null.
+            Button used to trigger attempting to sign in. Can be left null.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._registerButton">
             <summary>
-            Button used to trigger attempting registration. Can be left null.
+            Button used to trigger attempting to register a new account. Can be left null.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._rememberMeToggle">
             <summary>
-            Toggle used to remember the current user login details for easy log in
+            Toggle used to enable/disable remembering the next signed in user's details for future sessions. Can be left null.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseAccountInterface._closeButton">
@@ -122,7 +119,7 @@
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseInterface._signinButton">
             <summary>
-            Button used to display account UI object (if available) if no user is signed in. Can be left null.
+            Button used to display account interface (if available) if no user is signed in. Can be left null.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.BaseInterface.Awake">
@@ -176,27 +173,37 @@
         </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseUnityClient`1">
             <summary>
-            Base class for UnityClient classes
+            Base abstract class for UnityClient classes
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseUnityClient`1._landscapeInterface">
             <summary>
-            Landscape UI object for this unity client. Can be left null if not required.
+            Landscape interface for this area of functionality. Can be left null if not required.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseUnityClient`1._portraitInterface">
             <summary>
-            Portrait UI object for this unity client. Can be left null if not required.
+            Portrait interface for this area of functionality. Can be left null if not required.
+            </summary>
+        </member>
+        <member name="P:PlayGen.SUGAR.Unity.BaseUnityClient`1._interface">
+            <summary>
+            The interface that is used for the current aspect ratio.
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.BaseUnityClient`1.HasInterface">
             <summary>
-            Has a UI object been provided for this Unity Client?
+            Has an interface been provided for this Unity Client?
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.BaseUnityClient`1.IsActive">
             <summary>
-            Is there a UI object and if so is it currently active?
+            Is there an interface and if so is it currently active?
+            </summary>
+        </member>
+        <member name="M:PlayGen.SUGAR.Unity.BaseUnityClient`1.Update">
+            <summary>
+            Change the used interface if the aspect ratio changes.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.BaseUnityClient`1.Hide">
@@ -206,12 +213,12 @@
         </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseEvaluationListInterface">
             <summary>
-            Base abstract class for controlling the UI object related to evaluation lists.
+            Base abstract class for controlling the interface related to evaluation lists.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.BaseEvaluationListInterface.HideInterfaces">
             <summary>
-            Hides Account, GameLeaderboard, Leaderboard, UserFriend, GroupMember and UserGroup UI objects.
+            Hides Account, GameLeaderboard, Leaderboard, UserFriend, GroupMember and UserGroup interfaces.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.BaseEvaluationListInterface.ErrorDraw(System.Boolean)">
@@ -231,7 +238,7 @@
         </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseEvaluationPopupInterface">
             <summary>
-            Base abstract class for controlling the UI object related to evaluation notifications.
+            Base abstract class for controlling the interface related to evaluation notifications.
             </summary>
         </member>
         <member name="F:PlayGen.SUGAR.Unity.BaseEvaluationPopupInterface._name">
@@ -264,30 +271,36 @@
             Current completion status for evaluations in this application for this user.
             </summary>
         </member>
+        <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.Update">
+            <summary>
+            Change the used interfaces if the aspect ratio changes.
+            </summary>
+        </member>
         <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.DisplayAchievementList">
             <summary>
-            Gathers current evaluation completion status and displays UI object if provided.
+            Gathers current user achievement completion status and displays interface if provided.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.DisplayGroupAchievementList">
             <summary>
-            Gathers current evaluation completion status and displays UI object if provided.
+            Gathers current group achievement completion status and displays interface if provided.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.DisplaySkillList">
             <summary>
-            Gathers current skill completion status and displays UI object if provided.
+            Gathers current user skill completion status and displays interface if provided.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.DisplayGroupSkillList">
             <summary>
-            Gathers current skill completion status and displays UI object if provided.
+            Gathers current group skill completion status and displays interface if provided.
             </summary>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.EvaluationUnityClient.ForceNotification(System.String)">
             <summary>
             Force an evaluation notification to be displayed with the provided text.
             </summary>
+            <param name="notification">String which will be used in the notification.</param>
         </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseUserFriendInterface">
             <summary>
@@ -382,58 +395,91 @@
         </member>
         <member name="T:PlayGen.SUGAR.Unity.GameDataUnityClient">
             <summary>
-            Unity client for calls related to gamedata.
+            Get and send GameData for the currently signed in user.
             </summary>
+        </member>
+        <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.Get(System.Action{System.Collections.Generic.IEnumerable{PlayGen.SUGAR.Contracts.EvaluationDataResponse}},System.String[])">
+            <summary>
+            Get GameData for the currently signed in user for this game.
+            </summary>
+            <param name="success">Callback which will return the list of gathered results.</param>
+            <param name="keys">Optional parameter. If provided, only GameData with a matching key will be returned.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetHighest(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the highest value for this user for the key provided.
+            Get the data related to the highest value recorded for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetLowest(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the lowest value for this user for the key provided.
+             Get the data related to the lowest value recorded for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetCumulative(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the cumulative value for this user for the key provided.
+            Get the cumulative value for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetCount(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the count for this user for the key provided.
+            Get the count of recorded values for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetEarliest(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the earliest value for this user for the key provided.
+            Get the earliest recorded data for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.GetLatest(System.String,PlayGen.SUGAR.Common.EvaluationDataType,System.Action{PlayGen.SUGAR.Contracts.EvaluationDataResponse})">
             <summary>
-            Get the latest value for this user for the key provided.
+            Get the latest recorded data for the currently signed in user for the key and dataType provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="dataType">EvaluationDataType of the GameData.</param>
+            <param name="success">Callback which will contain the gathered result.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.Send(System.String,System.String)">
             <summary>
-            Send a piece of gamedata with key and value provided.
+            Record GameData with EvaluationDataType String with the key and value provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="value">The String value that'll be recorded.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.Send(System.String,System.Int64)">
             <summary>
-            Send a piece of gamedata with key and value provided.
+            Record GameData with EvaluationDataType Long with the key and value provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="value">The Long value that'll be recorded.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.Send(System.String,System.Single)">
             <summary>
-            Send a piece of gamedata with key and value provided.
+            Record GameData with EvaluationDataType Float with the key and value provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="value">The Float value that'll be recorded.</param>
         </member>
         <member name="M:PlayGen.SUGAR.Unity.GameDataUnityClient.Send(System.String,System.Boolean)">
             <summary>
-            Send a piece of gamedata with key and value provided.
+            Record GameData with EvaluationDataType Bool with the key and value provided.
             </summary>
+            <param name="key">Name of the GameData key.</param>
+            <param name="value">The Bool value that'll be recorded.</param>
         </member>
         <member name="T:PlayGen.SUGAR.Unity.BaseGroupMemberInterface">
             <summary>
@@ -808,17 +854,22 @@
         </member>
         <member name="P:PlayGen.SUGAR.Unity.SUGARManager.CurrentUser">
             <summary>
-            Currently signed in user. WARNING: Only set this value if completely necessary.
+            Currently signed in user.
+            </summary>
+        </member>
+        <member name="P:PlayGen.SUGAR.Unity.SUGARManager.UserSignedIn">
+            <summary>
+            Is there a user currently signed in.
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.SUGARManager.CurrentGroup">
             <summary>
-            Currently signed in user's group. WARNING: Only set this value if completely necessary.
+            Currently signed in user's primary group.
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.SUGARManager.ClassId">
             <summary>
-            Group name gathered from auto sign in. WARNING: Only set this value if completely necessary.
+            Group name gathered from auto sign in.
             </summary>
         </member>
         <member name="P:PlayGen.SUGAR.Unity.SUGARManager.Account">
@@ -874,6 +925,16 @@
         <member name="P:PlayGen.SUGAR.Unity.SUGARManager.Client">
             <summary>
             Class for contacting SUGAR client functionality
+            </summary>
+        </member>
+        <member name="M:PlayGen.SUGAR.Unity.SUGARManager.SetCurrentGroup(PlayGen.SUGAR.Contracts.ActorResponse)">
+            <summary>
+            Set the 'primary' group for the currently signed in user
+            </summary>
+        </member>
+        <member name="M:PlayGen.SUGAR.Unity.SUGARManager.SetClassId(System.String)">
+            <summary>
+            Set the ClassId for the currently signed in user
             </summary>
         </member>
         <member name="T:PlayGen.SUGAR.Unity.SUGARUnityManager">
