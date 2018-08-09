@@ -1,4 +1,4 @@
-# Dumb Waiters
+# Overview
 
 ## About the game
 - Dumb waiters is a competitive multiplayer game where players try to make the most money as a server in a restaurant. Teams can boost or sabotage other teams, providing more tips and better satisfied customers.
@@ -7,7 +7,40 @@
 - Reputation is awarded for winning games, completing achievements and for donating money to the group. Players reputation will dictate their level, the higher the players level, the more items they can buy in the shop.
 - Before each game, players can also take money from the group to help lead them to victory. There are leaderboards for the players group so that they can see who has donated the most money and also who has taken the most money from the group.
 
-## Key Structure
+## SUGAR Usage
+Below are a list of the SUGAR functionalities used in Dumb Waiters
+
+#### Accounts
+The game required users to be logged in to play and track their progress. SUGAR allows for new accounts to be made through the game
+
+- **[Assets/Networking/SUGARUI.cs](Assets/Networking/SUGARUI.cs)**
+
+#### Groups (Clans)
+Dumb waiters uses groups for clan functionality, upon logging in to SUGAR for the first time, players are prompted to join one of the clans. From a clan players can Donate/Take Money, View Clan Leaderboards and Earn bonus reputation
+
+- **[Assets/Scripts/Managers/MenuManager.cs](Assets/Scripts/Managers/MenuManager.cs)**
+- **[Assets/Scripts/UI/MyGroupUI.cs](Assets/Scripts/UI/MyGroupUI.cs)**
+
+#### Resources
+Players money is stored as a resource through SUGAR, allowing for money to be added and removed by using
+
+```c#
+    SUGARManager.Resource.Add(name, amount, callback);
+```
+
+- **[Assets/Scripts/Mechanics/ShopItems.cs](Assets/Scripts/Mechanics/ShopItems.cs)**
+- **[Assets/Networking/CommandHandler.cs](Assets/Networking/CommandHandler.cs)**
+- **[Assets/Scripts/UI/MyGroupUI.cs](Assets/Scripts/UI/MyGroupUI.cs)**
+
+#### Game Data/Achievements/Leaderboards
+For each action made in game, game data is saved to SUGAR, this game data is used to track players' achievements and rank them in leaderboards
+
+- **[Assets/Networking/CommandHandler.cs](Assets/Networking/CommandHandler.cs)**
+- **[Assets/Scripts/UI/MyGroupUI.cs](Assets/Scripts/UI/MyGroupUI.cs)**
+- **[Assets/Scripts/UI/MyProfileUI.cs](Assets/Scripts/UI/MyProfileUI.cs)**
+- **[Assets/Scripts/Managers/MenuManager.cs](Assets/Scripts/Managers/MenuManager.cs)**
+
+# Unity Project Structure
 The unity project follows the following structure
 - **Animations**: Animations in game, currently using Legacy animations for simplicity
 - **Art**
@@ -31,6 +64,8 @@ The unity project follows the following structure
     - The scripts folder also contains the HACK code that will be optimised and placed in the correct location later
 - **SUGAR**: From [Unity Asset Store](https://assetstore.unity.com/packages/tools/network/sugar-social-gamification-107078)
 
+## Development 
+
 ### Groups
 The game contains 3 groups, these are interacted with similar to clans, a group of people working together to reach a common goal and aiding each other where possible, but without a user to user experience. Upon starting the game as a new user, the game checks if the player is in a group, and if not prompts them to join one. A player should only ever be in one group and should not be able to change. (similar to [Pokémon Go](http://pokemongo.wikia.com/wiki/Teams)).
 
@@ -40,7 +75,7 @@ Matchmaking will never take into account which group a player is part of, but pl
 See Assets/Networking for networked scripts used within unity. When clients connect to the server they are provided with a player character in game, this uses the Assets/Networking/Player.prefab object which has the CommandHandler.cs class attached which has [LocalPlayerAuthority] to allow players to send commands to the server. The actual Player Character, found at Assets/Prefabs/Characters/PlayerCharacter.prefab acts as a dumb object and just receives commands from the server.
 
 #### Server/Client behaviour
-![Network Flow](Networking.png)
+![Network Flow](networking.png)
 
 The server for Dumb Waiters contains all the game logic, with clients being 'dumb' objects that are only able to send commands. Clients must log into SUGAR when they start the game, allowing for them to save their progress and resources, needed for making purchases and progressing in the game. During the main gameplay, the server acts as a shared screen, with all clients seeing a controller and inventory system that they can interact with on their mobile device. 
 
