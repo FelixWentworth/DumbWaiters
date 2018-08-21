@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 	private float _y;
 	private float _z;
 
+	public bool CanMove { get; set; }
 	public float MovementSpeed { get; set; }
 	private float _deadzone = 0.05f;
 	private float _reductionFactor = 1.25f;
@@ -32,6 +33,7 @@ public class Movement : MonoBehaviour
 
 	void Start()
 	{
+		CanMove = true;
 		StartCoroutine(MoveObject());
 	}
 
@@ -39,26 +41,29 @@ public class Movement : MonoBehaviour
 	{
 		while (true)
 		{
-			if (_destination != Vector3.one * 100)
+			if (CanMove)
 			{
-				transform.LookAt(_destination);
-				transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * MovementSpeed);
-
-				if (Vector3.Distance(transform.position, _destination) < 1.25f)
+				if (_destination != Vector3.one * 100)
 				{
-					transform.LookAt(transform.position + Vector3.forward);
-					transform.position = _destination;
-				}
-			}
-			else
-			{
-				var newPos = new Vector3(transform.position.x + _x, transform.position.y, transform.position.z + _z);
-				transform.LookAt(newPos);
-				transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * MovementSpeed);
+					transform.LookAt(_destination);
+					transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * MovementSpeed);
 
-				// reduce player speed over time
-				//ReduceSpeeds();
-				ResetSpeeds();
+					if (Vector3.Distance(transform.position, _destination) < 1.25f)
+					{
+						transform.LookAt(transform.position + Vector3.forward);
+						transform.position = _destination;
+					}
+				}
+				else
+				{
+					var newPos = new Vector3(transform.position.x + _x, transform.position.y, transform.position.z + _z);
+					transform.LookAt(newPos);
+					transform.position = Vector3.MoveTowards(transform.position, newPos, Time.deltaTime * MovementSpeed);
+
+					// reduce player speed over time
+					//ReduceSpeeds();
+					ResetSpeeds();
+				}
 			}
 			yield return null;
 		}

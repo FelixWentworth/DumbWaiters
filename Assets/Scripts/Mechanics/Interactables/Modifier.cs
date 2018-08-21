@@ -8,7 +8,7 @@ public class Modifier : Interactable {
 	[SerializeField] private float _timeToDestroy;
 
 	[SerializeField] private float _bonusAmount;
-	[Range(3, 7)] [SerializeField] private int _range;
+	[Range(1, 7)] [SerializeField] private int _range;
 
 
 	public int Team { get; set; }
@@ -27,7 +27,10 @@ public class Modifier : Interactable {
 
 	void Start()
 	{
-		RangeGameObject.SetActive(false);
+		if (!_isPlaced)
+		{
+			RangeGameObject.SetActive(false);
+		}
 	}
 
 	void Update()

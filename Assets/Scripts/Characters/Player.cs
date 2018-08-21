@@ -51,35 +51,36 @@ public class Player : MonoBehaviour
 		ProgressBarParent.SetActive(Busy);
 		float x = 0f;
 		float z = 0f;
-		//	x = Input.GetAxis("Horizontal");
-		//	z = Input.GetAxis("Vertical");
+			x = Input.GetAxis("Horizontal");
+			z = Input.GetAxis("Vertical");
 
-		//	if (x != 0 || z != 0)
-		//	{
-		//		Move(x, z);
-		//	}
-		//	if (!Busy)
-		//	{
-		//		if (Input.GetKeyDown(KeyCode.Space))
-		//		{
-		//			Interact();
-		//		}
+			if (x != 0 || z != 0)
+			{
+				Move(x, z);
+			}
+		if (!Busy)
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				Interact();
+			}
 
-		//		// TODO move to command for server
-		//		if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
-		//		{
-		//			// Spawn a sabotage Item
-		//			_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
-		//				Quaternion.identity);
-		//		}
+			// TODO move to command for server
+			if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
+			{
+				// Spawn a sabotage Item
+				_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
+			}
 
-		//		if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
-		//		{
-		//			// Spawn a bonus Item
-		//			_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
-		//				Quaternion.identity);
+			if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
+			{
+				// Spawn a bonus Item
+				_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
+					Quaternion.identity);
 
-		//		}
+			}
+		}
 
 		if (Team == 1)
 		{
@@ -156,12 +157,10 @@ public class Player : MonoBehaviour
 			}
 		}
 		
-
 		if (x != 0 || z != 0)
 		{
 			Move(x, z);
 		}
-
 	}
 
 	public void Move(float x, float z)
@@ -225,6 +224,25 @@ public class Player : MonoBehaviour
 					break;
 			}
 		}
+	}
+
+	public void Hit()
+	{
+		_movement.MovementSpeed = 0f;
+		_movement.CanMove = false;
+		StartCoroutine(PlayHitAnim());
+	}
+
+	private IEnumerator PlayHitAnim()
+	{
+		var anim = GetComponent<Animation>();
+		anim.Play();
+		while (anim.isPlaying)
+		{
+			yield return null;
+		}
+		_movement.CanMove = true;
+		_movement.MovementSpeed = MovementSpeed;
 	}
 
 	private IEnumerator WaitToUse(Interactable interactable)
