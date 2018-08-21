@@ -49,8 +49,8 @@ public class Player : MonoBehaviour
 	void Update()
 	{
 		ProgressBarParent.SetActive(Busy);
-		//float x = 0f;
-		//float z = 0f;
+		float x = 0f;
+		float z = 0f;
 		//	x = Input.GetAxis("Horizontal");
 		//	z = Input.GetAxis("Vertical");
 
