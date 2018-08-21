@@ -49,38 +49,38 @@ public class Player : MonoBehaviour
 	void Update()
 	{
 		ProgressBarParent.SetActive(Busy);
-		float x = 0f;
-		float z = 0f;
-			x = Input.GetAxis("Horizontal");
-			z = Input.GetAxis("Vertical");
+		//float x = 0f;
+		//float z = 0f;
+		//	x = Input.GetAxis("Horizontal");
+		//	z = Input.GetAxis("Vertical");
 
-			if (x != 0 || z != 0)
-			{
-				Move(x, z);
-			}
-		if (!Busy)
-		{
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				Interact();
-			}
+		//	if (x != 0 || z != 0)
+		//	{
+		//		Move(x, z);
+		//	}
+		//if (!Busy)
+		//{
+		//	if (Input.GetKeyDown(KeyCode.Space))
+		//	{
+		//		Interact();
+		//	}
 
-			// TODO move to command for server
-			if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
-			{
-				// Spawn a sabotage Item
-				_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
-					Quaternion.identity);
-			}
+		//	 TODO move to command for server
+		//	if (Input.GetKeyDown(KeyCode.Alpha1) && _sabotageItem == null)
+		//	{
+		//		 Spawn a sabotage Item
+		//		_sabotageItem = Instantiate(SabotagePrefab, new Vector3(transform.position.x, 0, transform.position.z),
+		//			Quaternion.identity);
+		//	}
 
-			if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
-			{
-				// Spawn a bonus Item
-				_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
-					Quaternion.identity);
+		//	if (Input.GetKeyDown(KeyCode.Alpha2) && _bonusItem == null)
+		//	{
+		//		 Spawn a bonus Item
+		//		_bonusItem = Instantiate(BonusPrefab, new Vector3(transform.position.x, 0, transform.position.z),
+		//			Quaternion.identity);
 
-			}
-		}
+		//	}
+		//}
 
 		if (Team == 1)
 		{
