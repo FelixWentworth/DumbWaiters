@@ -4,14 +4,14 @@ using PlayGen.SUGAR.Unity;
 public class TestImplementation : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 		SUGARManager.Account.DisplayLogInPanel(success =>
 		{
 
 		});
 	}
 
-	void Update()
+	private void Update()
 	{
 		if (Input.GetKey(KeyCode.T))
 		{
@@ -22,6 +22,10 @@ public class TestImplementation : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.K))
 			{
 				SUGARManager.Evaluation.DisplayAchievementList();
+			}
+			if (Input.GetKeyDown(KeyCode.J))
+			{
+				SUGARManager.Evaluation.DisplaySkillList();
 			}
 			if (Input.GetKeyDown(KeyCode.A))
 			{
@@ -47,6 +51,18 @@ public class TestImplementation : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
+		}
+		if (Input.GetKeyDown(KeyCode.Delete))
+		{
+			SUGARManager.Account.Logout(
+			success => 
+			{
+				SUGARManager.Account.DisplayLogInPanel(
+				signIn => 
+				{
+
+				});
+			});
 		}
 	}
 }

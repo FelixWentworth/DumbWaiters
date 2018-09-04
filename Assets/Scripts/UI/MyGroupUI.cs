@@ -41,7 +41,7 @@ public class MyGroupUI : MonoBehaviour
 		SUGARManager.Resource.TryTake(_id, "Money", _requestAmount, TransferSuccess);
 	}
 
-	private void TransferSuccess(bool b)
+	private void TransferSuccess(bool b, long value)
 	{
 		MoneyInputField.text = "";
 		if (b)

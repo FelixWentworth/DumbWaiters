@@ -7,9 +7,17 @@ using UnityEngine.UI;
 
 using PlayGen.Unity.Utilities.Text;
 using PlayGen.Unity.Utilities.Localization;
+using PlayGen.SUGAR.Common;
 
 public class EvaluationListInterface : BaseEvaluationListInterface
 {
+	/// <summary>
+	/// Text which describes the current information being displayed.
+	/// </summary>
+	[Tooltip("Text which describes the current information being displayed.")]
+	[SerializeField]
+	private Text _titleText;
+
 	/// <summary>
 	/// An array of the EvaluationItemInterfaces on this GameObject, set in the Inspector.
 	/// </summary>
@@ -49,8 +57,8 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 	protected override void Awake()
 	{
 		base.Awake();
-		_previousButton.onClick.AddListener(delegate { UpdatePageNumber(-1); });
-		_nextButton.onClick.AddListener(delegate { UpdatePageNumber(1); });
+		_previousButton.onClick.AddListener(() => UpdatePageNumber(-1));
+		_nextButton.onClick.AddListener(() => UpdatePageNumber(1));
 	}
 
 	/// <summary>
@@ -85,6 +93,8 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 	/// </summary>
 	protected override void Draw()
 	{
+		var evaluationType = SUGARManager.Evaluation.Progress.FirstOrDefault()?.Type;
+		_titleText.text = evaluationType == null ? string.Empty : Localization.Get(evaluationType == EvaluationType.Achievement ? "ACHIEVEMENTS" : "SKILLS");
 		var evaluationList = SUGARManager.Evaluation.Progress.Skip(_pageNumber * _evaluationItems.Length).Take(_evaluationItems.Length).ToList();
 		if (!evaluationList.Any() && _pageNumber > 0)
 		{
@@ -96,7 +106,7 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 			UpdatePageNumber(1);
 			return;
 		}
-		for (int i = 0; i < _evaluationItems.Length; i++)
+		for (var i = 0; i < _evaluationItems.Length; i++)
 		{
 			if (i >= evaluationList.Count)
 			{
@@ -107,13 +117,9 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 				_evaluationItems[i].SetText(evaluationList[i], Mathf.Approximately(evaluationList[i].Progress, 1.0f));
 			}
 		}
-		if (_pageNumberText != null)
-		{
-			_pageNumberText.text = Localization.GetAndFormat("PAGE", false, _pageNumber + 1);
-		}
 		_previousButton.gameObject.SetActive(_pageNumber > 0);
 		_nextButton.gameObject.SetActive(SUGARManager.Evaluation.Progress.Count > (_pageNumber + 1) * _evaluationItems.Length);
-		_evaluationItems.Select(t => t.gameObject).BestFit();
+		DoBestFit();
 	}
 
 	/// <summary>
@@ -138,8 +144,10 @@ public class EvaluationListInterface : BaseEvaluationListInterface
 	/// </summary>
 	private void DoBestFit()
 	{
-		_evaluationItems.Select(t => t.gameObject).BestFit();
-		GetComponentsInChildren<Button>(true).Select(t => t.gameObject).BestFit();
+		_evaluationItems.Select(t => t.transform.Find("Name")).BestFit();
+		_evaluationItems.Select(t => t.transform.Find("Description")).BestFit();
+		_evaluationItems.Select(t => t.transform.Find("Progress")).BestFit();
+		GetComponentsInChildren<Button>(true).ToList().BestFit();
 	}
 
 	/// <summary>

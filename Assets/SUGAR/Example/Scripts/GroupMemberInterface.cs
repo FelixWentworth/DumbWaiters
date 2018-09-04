@@ -48,8 +48,8 @@ public class GroupMemberInterface : BaseGroupMemberInterface
 	protected override void Awake()
 	{
 		base.Awake();
-		_previousButton.onClick.AddListener(delegate { UpdatePageNumber(-1); });
-		_nextButton.onClick.AddListener(delegate { UpdatePageNumber(1); });
+		_previousButton.onClick.AddListener(() => UpdatePageNumber(-1));
+		_nextButton.onClick.AddListener(() => UpdatePageNumber(1));
 	}
 
 	/// <summary>
@@ -97,7 +97,7 @@ public class GroupMemberInterface : BaseGroupMemberInterface
 			UpdatePageNumber(1);
 			return;
 		}
-		for (int i = 0; i < _memberItems.Length; i++)
+		for (var i = 0; i < _memberItems.Length; i++)
 		{
 			if (i >= actorList.Count)
 			{
@@ -142,7 +142,7 @@ public class GroupMemberInterface : BaseGroupMemberInterface
 	/// </summary>
 	private void DoBestFit()
 	{
-		GetComponentsInChildren<Button>(true).Where(t => !t.GetComponentInParent<GroupMemberItemInterface>()).Select(t => t.gameObject).BestFit();
+		GetComponentsInChildren<Button>(true).Where(t => !t.GetComponentInParent<GroupMemberItemInterface>()).ToList().BestFit();
 	}
 
 	/// <summary>

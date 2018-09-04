@@ -40,22 +40,15 @@ public class ShopItems : MonoBehaviour
 	public void GetItem(int index, int cost)
 	{
 		// check the player has enough money
-		if (SUGARManager.Resource.UserGameResources.ContainsKey("Money"))
+		var playerMoney = Convert.ToInt64(SUGARManager.Resource.GetFromCache("Money"));
+		if (playerMoney > cost)
 		{
-			var playerMoney = Convert.ToInt64(SUGARManager.Resource.UserGameResources["Money"]);
-			if (playerMoney > cost)
-			{
-				_index = index;
-				SUGARManager.Resource.Add("Money", -cost, Success);
-			}
-		}
-		else
-		{
-			Debug.Log("No Money Found");
+			_index = index;
+			SUGARManager.Resource.Add("Money", -cost, Success);
 		}
 	}
 
-	private void Success(bool b)
+	private void Success(bool b, long value)
 	{
 		if (b)
 		{

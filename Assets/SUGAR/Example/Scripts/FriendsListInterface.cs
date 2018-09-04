@@ -109,16 +109,16 @@ public class FriendsListInterface : BaseUserFriendInterface {
 	protected override void Awake()
 	{
 		base.Awake();
-		_friendsButton.onClick.AddListener(delegate { SetListType(0); });
-		_requestButton.onClick.AddListener(delegate { SetListType(1); });
-		_sentButton.onClick.AddListener(delegate { SetListType(2); });
-		_searchButton.onClick.AddListener(delegate { SetListType(3); });
+		_friendsButton.onClick.AddListener(() => SetListType(0));
+		_requestButton.onClick.AddListener(() => SetListType(1));
+		_sentButton.onClick.AddListener(() => SetListType(2));
+		_searchButton.onClick.AddListener(() => SetListType(3));
 		_friendsButton.onClick.AddListener(GetFriends);
 		_requestButton.onClick.AddListener(GetPendingReceived);
 		_sentButton.onClick.AddListener(GetPendingSent);
-		_searchTextButton.onClick.AddListener(delegate { GetSearchResults(_searchInput.text); });
-		_previousButton.onClick.AddListener(delegate { UpdatePageNumber(-1); });
-		_nextButton.onClick.AddListener(delegate { UpdatePageNumber(1); });
+		_searchTextButton.onClick.AddListener(() => GetSearchResults(_searchInput.text));
+		_previousButton.onClick.AddListener(() => UpdatePageNumber(-1));
+		_nextButton.onClick.AddListener(() => UpdatePageNumber(1));
 	}
 
 	/// <summary>
@@ -191,7 +191,7 @@ public class FriendsListInterface : BaseUserFriendInterface {
 			UpdatePageNumber(1);
 			return;
 		}
-		for (int i = _listType == 3 ? 1 : 0; i < _friendItems.Length; i++)
+		for (var i = _listType == 3 ? 1 : 0; i < _friendItems.Length; i++)
 		{
 			if (i - (_listType == 3 ? 1 : 0) >= actorList.Count)
 			{
@@ -245,7 +245,7 @@ public class FriendsListInterface : BaseUserFriendInterface {
 	/// </summary>
 	private void DoBestFit()
 	{
-		GetComponentsInChildren<Button>(true).Where(t => !t.GetComponentInParent<FriendsListItemInterface>()).Select(t => t.gameObject).BestFit();
+		GetComponentsInChildren<Button>(true).Where(t => !t.GetComponentInParent<FriendsListItemInterface>()).ToList().BestFit();
 	}
 
 	/// <summary>

@@ -6,7 +6,6 @@ using PlayGen.Unity.Utilities.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using PlayGen.Unity.Utilities.Localization;
-using PlayGen.SUGAR.Common;
 
 public class LeaderboardInterface : BaseLeaderboardInterface
 {
@@ -43,8 +42,8 @@ public class LeaderboardInterface : BaseLeaderboardInterface
 	{
 		base.Awake();
 		SUGARManager.Leaderboard.SetPositionCount(_leaderboardPositions.Length);
-		_previousButton.onClick.AddListener(delegate { UpdatePageNumber(-1); });
-		_nextButton.onClick.AddListener(delegate { UpdatePageNumber(1); });
+		_previousButton.onClick.AddListener(() => UpdatePageNumber(-1));
+		_nextButton.onClick.AddListener(() => UpdatePageNumber(1));
 	}
 
 	/// <summary>
@@ -84,12 +83,12 @@ public class LeaderboardInterface : BaseLeaderboardInterface
 			UpdatePageNumber(-1);
 			return;
 		}
-		if ((!SUGARManager.Leaderboard.CurrentStandings.Any() && _pageNumber < 0))
+		if (!SUGARManager.Leaderboard.CurrentStandings.Any() && _pageNumber < 0)
 		{
 			UpdatePageNumber(1);
 			return;
 		}
-		for (int i = 0; i < _leaderboardPositions.Length; i++)
+		for (var i = 0; i < _leaderboardPositions.Length; i++)
 		{
 			if (i >= SUGARManager.Leaderboard.CurrentStandings.Count)
 			{
@@ -100,19 +99,19 @@ public class LeaderboardInterface : BaseLeaderboardInterface
 				_leaderboardPositions[i].SetText(SUGARManager.Leaderboard.CurrentStandings[i]);
 			}
 		}
-		_leaderboardName.text = SUGARManager.Leaderboard.CurrentLeaderboard != null ? SUGARManager.Leaderboard.CurrentLeaderboard.Name : string.Empty;
-		_leaderboardType.text = Localization.Get(SUGARManager.Leaderboard.CurrentFilter.ToString());
 		_previousButton.interactable = false;
+		_previousButton.gameObject.SetActive(SUGARManager.Leaderboard.CurrentLeaderboard != null);
 		_nextButton.interactable = false;
+		_nextButton.gameObject.SetActive(SUGARManager.Leaderboard.CurrentLeaderboard != null);
 		SUGARManager.Leaderboard.GetLeaderboardStandings(_pageNumber - 1, success => { }, resultDown =>
 		{
-			_previousButton.interactable = resultDown.ToList().Count > 0 && resultDown.First().ActorName != SUGARManager.Leaderboard.CurrentStandings.First().ActorName;
+			_previousButton.interactable = resultDown.ToList().Count > 0 && resultDown.First().Ranking != SUGARManager.Leaderboard.CurrentStandings.First().Ranking;
 			SUGARManager.Leaderboard.GetLeaderboardStandings(_pageNumber + 1, success => { }, resultUp =>
 			{
-				_nextButton.interactable = resultUp.ToList().Count > 0;
+				_nextButton.interactable = resultUp.ToList().Count > 0 && resultUp.First().Ranking != SUGARManager.Leaderboard.CurrentStandings.First().Ranking;
 			});
 		});
-		_leaderboardPositions.Select(t => t.gameObject).BestFit();
+		_leaderboardPositions.ToList().BestFit();
 	}
 
 	/// <summary>
@@ -137,8 +136,8 @@ public class LeaderboardInterface : BaseLeaderboardInterface
 	/// </summary>
 	private void DoBestFit()
 	{
-		_leaderboardPositions.Select(t => t.gameObject).BestFit();
-		GetComponentsInChildren<Button>(true).Select(t => t.gameObject).BestFit();
+		_leaderboardPositions.ToList().BestFit();
+		GetComponentsInChildren<Button>(true).ToList().BestFit();
 	}
 
 	/// <summary>

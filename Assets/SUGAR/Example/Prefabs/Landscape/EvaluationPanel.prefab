@@ -1326,6 +1326,7 @@ MonoBehaviour:
   _errorText: {fileID: 114000012128800644}
   _closeButton: {fileID: 114000010590860348}
   _signinButton: {fileID: 114749759618620804}
+  _titleText: {fileID: 114000013008114804}
   _evaluationItems:
   - {fileID: 114002502628658806}
   - {fileID: 114504181626415576}
@@ -1622,6 +1623,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114308800088009338}
   _evaluationDescription: {fileID: 114812413211327164}
   _evaluationImage: {fileID: 114270434149369622}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114004705407098586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1663,6 +1665,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114085823117385564}
   _evaluationDescription: {fileID: 114413971661954804}
   _evaluationImage: {fileID: 114323637684108886}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114009166921528570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2051,6 +2054,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114009166921528570}
   _evaluationDescription: {fileID: 114057159309553302}
   _evaluationImage: {fileID: 114379346653789994}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114212458770254572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2166,6 +2170,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114305587699973552}
   _evaluationDescription: {fileID: 114982534839890852}
   _evaluationImage: {fileID: 114239402730110138}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114273954600676262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2180,6 +2185,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114329099638839298}
   _evaluationDescription: {fileID: 114403891220758754}
   _evaluationImage: {fileID: 114572289747030750}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114290054462184526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2454,6 +2460,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114030538757400464}
   _evaluationDescription: {fileID: 114996531367555120}
   _evaluationImage: {fileID: 114676797900091198}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114348394926990940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2642,6 +2649,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114323509546338102}
   _evaluationDescription: {fileID: 114227132790251466}
   _evaluationImage: {fileID: 114520999860065284}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114413971661954804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2730,6 +2738,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114596077880451622}
   _evaluationDescription: {fileID: 114162564333126452}
   _evaluationImage: {fileID: 114161977676231500}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114516874817957200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3277,6 +3286,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114290054462184526}
   _evaluationDescription: {fileID: 114850538259036614}
   _evaluationImage: {fileID: 114776999151079142}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114812413211327164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3431,6 +3441,7 @@ MonoBehaviour:
   _evaluationName: {fileID: 114868661792356292}
   _evaluationDescription: {fileID: 114011251905422618}
   _evaluationImage: {fileID: 114031862124766076}
+  _evaluationProgress: {fileID: 0}
 --- !u!114 &114982534839890852
 MonoBehaviour:
   m_ObjectHideFlags: 1

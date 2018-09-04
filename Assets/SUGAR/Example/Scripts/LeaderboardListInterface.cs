@@ -35,13 +35,27 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	private int _pageNumber;
 
 	/// <summary>
+	/// Filter that is used when opening leaderboards via this interface
+	/// </summary>
+	[Tooltip("Filter that is used when opening leaderboards via this interface")]
+	[SerializeField]
+	private LeaderboardFilterType _defaultLeaderboardFilter;
+
+	/// <summary>
+	/// Setting for determining if actors can appear on a leaderboard multiple times (actors will only ever appear once when filter is set to Near)
+	/// </summary>
+	[Tooltip("Setting for determining if actors can appear on a leaderboard multiple times (actors will only ever appear once when filter is set to Near)")]
+	[SerializeField]
+	private bool _defaultMultiplePerActor;
+
+	/// <summary>
 	/// In addition to base onclick adding, adds listeners for the previous and next buttons.
 	/// </summary>
 	protected override void Awake()
 	{
 		base.Awake();
-		_previousButton.onClick.AddListener(delegate { UpdatePageNumber(-1); });
-		_nextButton.onClick.AddListener(delegate { UpdatePageNumber(1); });
+		_previousButton.onClick.AddListener(() => UpdatePageNumber(-1));
+		_nextButton.onClick.AddListener(() => UpdatePageNumber(1));
 	}
 
 	/// <summary>
@@ -59,7 +73,6 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	/// </summary>
 	private void OnDisable()
 	{
-		SUGARManager.Leaderboard.Hide();
 		BestFit.ResolutionChange -= DoBestFit;
 		Localization.LanguageChange -= OnLanguageChange;
 	}
@@ -78,6 +91,7 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	protected override void Draw()
 	{
 		var leaderboardList = SUGARManager.GameLeaderboard.Leaderboards[SUGARManager.GameLeaderboard.CurrentActorType].ToList();
+		_nextButton.interactable = leaderboardList.Count > (_pageNumber + 1) * _leaderboardButtons.Length;
 		leaderboardList = leaderboardList.Skip(_pageNumber * _leaderboardButtons.Length).Take(_leaderboardButtons.Length).ToList();
 		if (!leaderboardList.Any() && _pageNumber > 0)
 		{
@@ -89,7 +103,7 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 			UpdatePageNumber(1);
 			return;
 		}
-		for (int i = 0; i < _leaderboardButtons.Length; i++)
+		for (var i = 0; i < _leaderboardButtons.Length; i++)
 		{
 			if (i >= leaderboardList.Count)
 			{
@@ -100,22 +114,12 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 				_leaderboardButtons[i].onClick.RemoveAllListeners();
 				_leaderboardButtons[i].GetComponentInChildren<Text>().text = leaderboardList[i].Name;
 				var token = leaderboardList[i].Token;
-				_leaderboardButtons[i].onClick.AddListener(delegate { DisplayLeaderboard(token, SUGARManager.Leaderboard.CurrentFilter); });
+				_leaderboardButtons[i].onClick.AddListener(() => SUGARManager.Leaderboard.Display(token, _defaultLeaderboardFilter, _defaultMultiplePerActor));
 				_leaderboardButtons[i].gameObject.SetActive(true);
 			}
 		}
-		_previousButton.gameObject.SetActive(_pageNumber > 0);
-		_nextButton.gameObject.SetActive(leaderboardList.Count > (_pageNumber + 1) * _leaderboardButtons.Length);
+		_previousButton.interactable = _pageNumber > 0;
 		DoBestFit();
-
-		_userButton.gameObject.SetActive(SUGARManager.GameLeaderboard.CurrentActorType != ActorType.User);
-		_groupButton.gameObject.SetActive(SUGARManager.GameLeaderboard.CurrentActorType != ActorType.Group);
-	}
-
-	private void DisplayLeaderboard(string token, LeaderboardFilterType filter)
-	{
-		Debug.Log("ClickPressed");
-		SUGARManager.Leaderboard.Display(token, filter);
 	}
 
 	/// <summary>
@@ -140,7 +144,7 @@ public class LeaderboardListInterface : BaseLeaderboardListInterface
 	/// </summary>
 	private void DoBestFit()
 	{
-		GetComponentsInChildren<Button>(true).Select(t => t.gameObject).BestFit();
+		GetComponentsInChildren<Button>(true).ToList().BestFit();
 	}
 
 	/// <summary>

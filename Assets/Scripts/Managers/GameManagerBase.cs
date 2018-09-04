@@ -86,6 +86,7 @@ public class GameManagerBase : MonoBehaviour {
 			if (_timeAvailable <= 0f)
 			{
 				// HACK stop gameplay
+				DistributeMoney();
 				_timeAvailable = 1;
 				Time.timeScale = 0f;
 				_uiManager.SetState(UIManager.UIState.GameOver).GetComponent<GameOverUI>().Show(_scoreManager.GetTeamMoney(1), _scoreManager.GetTeamMoney(2));

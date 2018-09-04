@@ -124,7 +124,6 @@ public class MenuManager : MonoBehaviour
 
 	public void Btn_ShowLeaderboard()
 	{
-		SUGARManager.GameLeaderboard.SetFilter(ActorType.Undefined);
 		SUGARManager.GameLeaderboard.DisplayGameList();
 	}
 

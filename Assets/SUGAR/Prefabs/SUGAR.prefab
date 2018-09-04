@@ -180,11 +180,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseAddress: http://localhost:59400/
-  _gameToken: Dumb Waiter
-  _gameId: 2
+  _gameToken: Dumb Waiters
+  _gameId: 1
   _uiBlocker: {fileID: 1823420820520756, guid: 32aeda71493f8f843ac0595a41de113d, type: 2}
-  _useBlocker: 0
-  _blockerClickClose: 0
+  _useBlocker: 1
+  _blockerClickClose: 1
   _uiSpinner: {fileID: 114457698309810782, guid: 225fde9262ab3a441a877acceec873ec,
     type: 2}
   _customInterfaceList: []
@@ -199,12 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 1493326051, guid: a68d5202d3713b54d9346a2ffece787b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _landscapeInterface: {fileID: 114401919038427288, guid: e29d7a7dd4a690245a2e6d8cf00df004,
-    type: 2}
+  _landscapeInterface: {fileID: 0}
   _portraitInterface: {fileID: 114033351558301050, guid: 362117e88b6d6c542b47831f219e5e46,
     type: 2}
   _positionCount: 10
-  _currentFilter: 0
 --- !u!114 &114419658720830504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,7 +233,6 @@ MonoBehaviour:
     type: 2}
   _portraitInterface: {fileID: 114000012229610962, guid: eb10b05a4c7df1342a4a9c3375046cf1,
     type: 2}
-  _currentActorType: 1
 --- !u!114 &114597521308858716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,7 +263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resourceCheckRate: 2.5
-  _checkGlobalUserResources: 0
 --- !u!114 &114938960575845522
 MonoBehaviour:
   m_ObjectHideFlags: 1
